@@ -1,17 +1,25 @@
 #adding repo
-sudo add-apt-repository ppa:webupd8team/atom
+add-apt-repository ppa:webupd8team/atom -y
 #initial update+upgrade
-sudo apt-get update
+apt-get update
+apt-get upgrade -y
 #start installing
 #development
-apt-get install git
+apt-get install git -y
 git config --global user.name "ljurk"
 git config --global user.email "ljurk@protonmail.com"
-sudo apt-get install atom
-apm install platformio-ide-terminal
+#install atom
+curl -sL https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add -
+sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'
+apt-get update
+apt-get install atom -y
+
+apm install platformio-ide
 apm install git-plus
 #audio
-sudo apt-get install banshee
-sudo apt-get install audacity
+apt-get install banshee -y 
+apt-get install audacity -y 
 
-apt-get install keepassx
+apt-get install keepassx -y 
+
+mkdir ~/.ssh
