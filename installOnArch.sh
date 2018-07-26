@@ -18,6 +18,7 @@ yaourt -S clang
 #install atom packages
 apm install platformio-ide
 apm install git-plus
+apm install package-switch
 
 yaourt -S keepassx2
 yaourt -S audacity
