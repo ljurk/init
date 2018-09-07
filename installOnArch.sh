@@ -33,4 +33,9 @@ if [ $1 == "atom" ]
     #ssh-keygen -y -f ~/.ssh/id_rsa > ~/.ssh/id_rsa.pub
 
     yaourt -S gufw
+    yaourt -S xfce-theme-manager
+    #theme: vertex-maia-dark
+    #winddow borders Numix
+    #controls: Adawaita-dark
+    #Icons: Numix Circle
 fi
