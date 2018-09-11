@@ -6,7 +6,8 @@ if [ $1 == "atom" ]
     apm install platformio-ide
     apm install git-plus
     apm install package-switch    
-  else
+  fi
+if [ $1 == "xfce" ] 
     #install yaourt
     pacman -S base-devel yaourt
     #stop yaourt from asking for everything
@@ -32,10 +33,45 @@ if [ $1 == "atom" ]
     chown ljurk:ljurk ~/.ssh
     #ssh-keygen -y -f ~/.ssh/id_rsa > ~/.ssh/id_rsa.pub
 
+	#firewall
     yaourt -S gufw
+    
+    #theming
     yaourt -S xfce-theme-manager
     #theme: vertex-maia-dark
     #winddow borders Numix
     #controls: Adawaita-dark
     #Icons: Numix Circle
+fi
+if [ $1 == "cinnamon" ]
+    #install yaourt
+    pacman -S base-devel yaourt
+    #stop yaourt from asking for everything
+    touch ~/.yaourtrc
+    chown ljurk:ljurk ~/.yaourtrc
+    echo 'NOCONFIRM=1' >> ~/.yaourtrc
+    echo 'BUILD_NOCONFIRM=1' >> ~/.yaourtrc
+    echo 'EDITFILES=0' >> ~/.yaourtrc
+    yaourt -Syu
+
+    yaourt -S git
+    git config --global user.name "ljurk"
+    git config --global user.email "ljurk@protonmail.com"
+    yaourt -S atom
+    yaourt -S aurvote
+    #clang for platformio
+    yaourt -S clang
+
+    yaourt -S keepassx2
+    yaourt -S audacity
+    #ssh pub
+    mkdir ~/.ssh
+    chown ljurk:ljurk ~/.ssh
+    #ssh-keygen -y -f ~/.ssh/id_rsa > ~/.ssh/id_rsa.pub
+	
+    #firewall
+    yaourt -S gufw
+    
+    #transparent terminal
+    yaourt -S gnome-terminal-transparency
 fi
