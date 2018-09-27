@@ -9,6 +9,9 @@ wget https://lab2k3.ddns.net/ljurk/initLinuxInstallation/raw/branch/master/insta
 chmod u+x installOnArch.sh
 sudo ./installOnArch.sh
 #PU_NOCONFIRM=1 and 0 in both /etc/yaourtrc and ~/.yaourtrc to not always ask
+sudo nano /etc/inputrc
+uncomment:
+#set bell-style none
 ```
 Debian based
 ```
