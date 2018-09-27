@@ -5,9 +5,9 @@ then
 	#install atom packages
     apm install platformio-ide
     apm install git-plus
-    apm install package-switch    
+    apm install package-switch
 fi
-if [ $1 == "xfce" ] 
+if [ $1 == "xfce" ]
 then
     #install yaourt
     pacman -S base-devel yaourt
@@ -36,7 +36,7 @@ then
 
 	#firewall
     yaourt -S gufw
-    
+
     #theming
     yaourt -S xfce-theme-manager
     #theme: vertex-maia-dark
@@ -44,7 +44,7 @@ then
     #controls: Adawaita-dark
     #Icons: Numix Circle
 fi
-if [ $1 == "x3" ] 
+if [ $1 == "x3" ]
 then
     #install yaourt
     pacman -S base-devel yaourt
@@ -73,7 +73,8 @@ then
 
 	#firewall
     yaourt -S gufw
-    
+
+    wget https://lab2k3.ddns.net/ljurk/initLinuxInstallation/src/branch/master/x3config.txt
     #theming
 fi
 if [ $1 == "cinnamon" ]
@@ -102,10 +103,10 @@ then
     mkdir ~/.ssh
     chown ljurk:ljurk ~/.ssh
     #ssh-keygen -y -f ~/.ssh/id_rsa > ~/.ssh/id_rsa.pub
-	
+
     #firewall
     yaourt -S gufw
-    
+
     #transparent terminal
     yaourt -S gnome-terminal-transparency
 fi
