@@ -13,7 +13,7 @@ then
 
     pacman -S --noconfirm git
     git config --global user.name "ljurk"
-    git config --global user.email "ljurk@pm.me"
+    git config --global user.email "ljurk@protonmail.com"
     
     pacman -S --noconfirm firefox
     pacman -S --noconfirm python-pip
