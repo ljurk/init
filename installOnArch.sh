@@ -9,104 +9,75 @@ then
 fi
 if [ $1 == "xfce" ]
 then
-    #install yaourt
-    pacman -S base-devel yaourt
-    #stop yaourt from asking for everything
-    touch ~/.yaourtrc
-    chown ljurk:ljurk ~/.yaourtrc
-    echo 'NOCONFIRM=1' >> ~/.yaourtrc
-    echo 'BUILD_NOCONFIRM=1' >> ~/.yaourtrc
-    echo 'EDITFILES=0' >> ~/.yaourtrc
-    yaourt -Syu
+    pacman -Syu
 
-    yaourt -S git
+    pacman -S git
     git config --global user.name "ljurk"
     git config --global user.email "ljurk@protonmail.com"
-    yaourt -S atom
-    yaourt -S aurvote
+    pacman -S atom
+    pacman -S aurvote
     #clang for platformio
-    yaourt -S clang
+    pacman -S clang
 
-    yaourt -S keepassx2
-    yaourt -S audacity
+    pacman -S keepassx2
+    pacman -S audacity
     #ssh pub
     mkdir ~/.ssh
     chown ljurk:ljurk ~/.ssh
     #ssh-keygen -y -f ~/.ssh/id_rsa > ~/.ssh/id_rsa.pub
 
 	#firewall
-    yaourt -S gufw
+    pacman -S gufw
 
     #theming
-    yaourt -S xfce-theme-manager
+    pacman -S xfce-theme-manager
     #theme: vertex-maia-dark
     #winddow borders Numix
     #controls: Adawaita-dark
     #Icons: Numix Circle
 fi
-if [ $1 == "x3" ]
+if [ $1 == "i3" ]
 then
-    #install yaourt
-    pacman -S base-devel yaourt
-    #stop yaourt from asking for everything
-    touch ~/.yaourtrc
-    chown ljurk:ljurk ~/.yaourtrc
-    echo 'NOCONFIRM=1' >> ~/.yaourtrc
-    echo 'BUILD_NOCONFIRM=1' >> ~/.yaourtrc
-    echo 'EDITFILES=0' >> ~/.yaourtrc
-    yaourt -Syu
+    pacman -Syu
 
-    yaourt -S git
+    pacman -S git
     git config --global user.name "ljurk"
     git config --global user.email "ljurk@protonmail.com"
-    yaourt -S atom
-    yaourt -S aurvote
+    pacman -S atom
+    pacman -S aurvote
     #clang for platformio
-    yaourt -S clang
+    pacman -S clang
 
-    yaourt -S keepassx2
-    yaourt -S audacity
+    pacman -S keepassx2
+    pacman -S audacity
     #ssh pub
     mkdir ~/.ssh
     chown ljurk:ljurk ~/.ssh
     #ssh-keygen -y -f ~/.ssh/id_rsa > ~/.ssh/id_rsa.pub
+    
+    #firewall
+    pacman -S gufw
 
-	#firewall
-    yaourt -S gufw
-
-    wget https://lab2k3.ddns.net/ljurk/initLinuxInstallation/src/branch/master/x3config.txt
+    wget https://lab2k3.ddns.net/ljurk/initLinuxInstallation/src/branch/master/i3config.txt
     #theming
 fi
 if [ $1 == "cinnamon" ]
-then
-    #install yaourt
-    pacman -S base-devel yaourt
-    #stop yaourt from asking for everything
-    touch ~/.yaourtrc
-    chown ljurk:ljurk ~/.yaourtrc
-    echo 'NOCONFIRM=1' >> ~/.yaourtrc
-    echo 'BUILD_NOCONFIRM=1' >> ~/.yaourtrc
-    echo 'EDITFILES=0' >> ~/.yaourtrc
-    yaourt -Syu
-
-    yaourt -S git
+    pacman -S git
     git config --global user.name "ljurk"
     git config --global user.email "ljurk@protonmail.com"
-    yaourt -S atom
-    yaourt -S aurvote
+    pacman -S atom
+    pacman -S aurvote
     #clang for platformio
-    yaourt -S clang
+    pacman -S clang
 
-    yaourt -S keepassx2
-    yaourt -S audacity
+    pacman -S keepassx2
+    pacman -S audacity
     #ssh pub
     mkdir ~/.ssh
     chown ljurk:ljurk ~/.ssh
     #ssh-keygen -y -f ~/.ssh/id_rsa > ~/.ssh/id_rsa.pub
 
     #firewall
-    yaourt -S gufw
+    pacman -S gufw
 
-    #transparent terminal
-    yaourt -S gnome-terminal-transparency
 fi
