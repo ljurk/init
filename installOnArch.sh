@@ -11,6 +11,7 @@ if [ $1 == "i3" ]
 then
     pacman -Syu
 
+    pacman -S --noconfirm i3blocks
     pacman -S --noconfirm git
     git config --global user.name "ljurk"
     git config --global user.email "ljurk@pm.me"
