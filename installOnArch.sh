@@ -19,9 +19,11 @@ then
     sudo pacman -S remmina freerdp 
     pacman -S --noconfirm firefox
     pacman -S --noconfirm python-pip
+
+    #pip
     pip install powerline-status
-    
-    pacman -S --noconfirm keepassx2
+    pip install passhole
+
     #firewall
     pacman -S --noconfirm gufw
 
