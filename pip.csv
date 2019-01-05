@@ -1,4 +1,4 @@
-NAME;DESCRIPTION
-passhole;"cli for keepass"
-powerline-status;"powerline"
-platformio;"platformio-cli"
+NAME;DESCRIPTION;PIP_VERSION
+passhole;"cli for keepass";3.7
+powerline-status;"powerline";3.7
+platformio;"platformio-cli";2.7
