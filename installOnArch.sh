@@ -19,10 +19,14 @@ then
     sudo pacman -S remmina freerdp 
     pacman -S --noconfirm firefox
     pacman -S --noconfirm python-pip
+    pacman -S urxvt-perls
 
     #pip
     pip install powerline-status
     pip install passhole
+    pip2.7 install platformio
+#need udev rules for uploading. see: https://docs.platformio.org/en/latest/faq.html#platformio-udev-rules
+    curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/scripts/99-platformio-udev.rules | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
 
     #firewall
     pacman -S --noconfirm gufw
