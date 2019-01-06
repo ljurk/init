@@ -7,8 +7,7 @@ IFS=";"
 sudo pacman -Syu --noconfirm > /dev/null
 
 #install pip2.7
-wget https://bootstrap.pypa.io/get-pip.py
-sudo python2.7 get-pip.py
+wget https://bootstrap.pypa.io/get-pip.py | sudo python2.7
 
 #install pacman packages
 sed 1d ./prg.csv | while read NAME DESCRIPTION
@@ -29,5 +28,6 @@ do
         echo "pip2.7 installing $NAME : $DESCRIPTION"
     fi
 done 
-
+#need udev rules for uploading. see: https://docs.platformio.org/en/latest/faq.html#platformio-udev-rules
+curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/scripts/99-platformio-udev.rule    s | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
 IFS=$OLDIFS
