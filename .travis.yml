@@ -8,7 +8,7 @@ services:
 arch:
   script:
   - echo "hello from arch"
-  - "./csvInstall.sh test"
+  - "./install.sh test"
 
 script:
 - echo "hello from outside"

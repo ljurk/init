@@ -1,16 +1,14 @@
 [![Build Status](https://travis-ci.org/ljurk/initialLinuxInstallation.svg?branch=master)](https://travis-ci.org/ljurk/initialLinuxInstallation)
 
 # my default Arch installation
-This is my default install script on linux. I made 2 Versions, 1 for Arch-based Systems and 1 for Debian-based Systems.
-
-A Version for Sound Systems will follow;) 
-
+This is my default install script on Arch.
 
 To get and run the script type the following in a terminal
 
-    wget https://lab2k3.ddns.net/ljurk/initLinuxInstallation/raw/branch/master/installOnArch.sh
-    chmod u+x installOnArch.sh
-    sudo ./installOnArch.sh
+    git clone https://github.com/ljurk/initialLinuxInstallation.git
+    cd initialLinuxInstallation
+    sudo ./install.sh
+    
     sudo nano /etc/inputrc
-    uncomment:
+    #uncomment:
     #set bell-style none
