@@ -3,6 +3,12 @@
 OLDIFS=$IFS
 IFS=";"
 
+#exit at first error
+if [ $1 == "test" ]
+then
+    set -e
+fi
+
 #update
 sudo pacman -Syu --noconfirm > /dev/null
 

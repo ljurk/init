@@ -13,7 +13,7 @@ thunderbird;
 cadence;
 pavucontrol;
 pandoc;
-texlive-base;
+texlive-core;
 texlive-fontsextra;
 zathura;
 zathura-pdf-mupdf;

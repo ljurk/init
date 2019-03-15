@@ -15,7 +15,7 @@ arch:
   script:
   - echo "hello from arch"
   - sudo screenfetch
-  - "./csvInstall.sh"
+  - "./csvInstall.sh test"
   - echo "ciao from arch"
 
 script:
