@@ -6,19 +6,12 @@ services:
 - docker
 
 arch:
-  packages:
-  # pacman packages
-  - python
-  - perl
-  - wget
-  - screenfetch-git
   script:
   - echo "hello from arch"
-  - sudo screenfetch
   - "./csvInstall.sh test"
   - echo "ciao from arch"
 
 script:
 - echo "hello from outside"
-- "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
+- "./arch-travis.sh"
 - echo "ciao from outside"
