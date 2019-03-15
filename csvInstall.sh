@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#set IFS to read the csv
 OLDIFS=$IFS
 IFS=","
 
@@ -9,10 +10,10 @@ then
     set -e
 fi
 
+echo "###############PACMAN-PACKAGES###############"
 #update
 sudo pacman -Syu --noconfirm > /dev/null
 
-echo "###############PACMAN-PACKAGES###############"
 #install pacman packages
 sed 1d ./prg.csv | while read NAME DESCRIPTION
 do
@@ -20,8 +21,6 @@ do
     sudo pacman --noconfirm -S $NAME > /dev/null
 done 
 
-#change default shell
-export SHELL=/bin/zsh
 
 echo "###############PIP-PACKAGES###############"
 #upgrade pip
@@ -41,7 +40,16 @@ do
     fi
 done 
 
-#need udev rules for uploading. see: https://docs.platformio.org/en/latest/faq.html#platformio-udev-rules
+#change default shell
+export SHELL=/bin/zsh
+
+#install fonts
+rm -rf /tmp/fonts
+git clone https://github.com/powerline/fonts.git --depth=1 /tmp/fonts
+sed -i 's#$HOME/.local/share/fonts#$HOME/.fonts#g' /tmp/fonts/install.sh
+/tmp/fonts/install.sh
+
+#platformio need udev rules for uploading. see: https://docs.platformio.org/en/latest/faq.html#platformio-udev-rules
 curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/scripts/99-platformio-udev.rule    s | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
 IFS=$OLDIFS
 

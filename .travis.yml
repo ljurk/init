@@ -12,5 +12,5 @@ arch:
 
 script:
 - echo "hello from outside"
-- "./arch-travis.sh"
+- "./tests/arch-travis.sh"
 - echo "ciao from outside"
