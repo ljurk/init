@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ljurk/initialLinuxInstallation.svg?branch=master)](https://travis-ci.org/ljurk/initialLinuxInstallation)
+
 # my default Arch installation
 This is my default install script on linux. I made 2 Versions, 1 for Arch-based Systems and 1 for Debian-based Systems.
 

@@ -6,11 +6,6 @@ IFS=";"
 #update
 sudo pacman -Syu --noconfirm > /dev/null
 
-#install pip2.7
-wget https://bootstrap.pypa.io/get-pip.py | sudo python2.7
-wget https://bootstrap.pypa.io/get-pip.py | sudo python3.7
-pip3.7 install --upgrade pip
-pip2.7 install --upgrade pip
 
 #install pacman packages
 sed 1d ./prg.csv | while read NAME DESCRIPTION
@@ -18,6 +13,12 @@ do
     sudo pacman --noconfirm -S $NAME > /dev/null
     echo "installing $NAME : $DESCRIPTION"
 done 
+
+#install pip2.7
+wget https://bootstrap.pypa.io/get-pip.py | sudo python2.7
+wget https://bootstrap.pypa.io/get-pip.py | sudo python3.7
+pip3.7 install --upgrade pip
+pip2.7 install --upgrade pip
 
 #install pip packages
 sed 1d ./pip.csv | while read NAME DESCRIPTION PIP_VERSION

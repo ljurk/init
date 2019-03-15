@@ -1,6 +1,6 @@
 NAME;DESCRIPTION
-python 3.7;
-python-pip;
+python;
+python2;
 i3blocks;
 zsh;
 firefox;
