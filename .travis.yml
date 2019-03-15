@@ -1,11 +1,11 @@
 sudo: required
 
+language: bash
+
 services:
 - docker
 
 arch:
-  repos:
-  - papyros=http://dash.papyros.io/repos/$repo/$arch
   packages:
   # pacman packages
   - python
@@ -17,3 +17,5 @@ arch:
   script:
   - "./csvInstall.sh"
 
+script:
+- "./csvInstall.sh"
