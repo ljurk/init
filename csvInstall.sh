@@ -20,6 +20,9 @@ do
     sudo pacman --noconfirm -S $NAME > /dev/null
 done 
 
+#change default shell
+export SHELL=/bin/zsh
+
 echo "###############PIP-PACKAGES###############"
 #upgrade pip
 pip install --upgrade pip --user
@@ -43,6 +46,8 @@ curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/
 IFS=$OLDIFS
 
 
-#zsh
+#oh-my-zsh
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+echo "###############DONE###############"
