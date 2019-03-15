@@ -9,4 +9,7 @@ thunderbird;
 cadence;
 pavucontrol;
 pandoc;
+texlive-base;
 texlive-fontsextra;
+zathura;
+zathura-pdf-mupdf;

@@ -1,0 +1,19 @@
+sudo: required
+
+services:
+- docker
+
+arch:
+  repos:
+  - papyros=http://dash.papyros.io/repos/$repo/$arch
+  packages:
+  # pacman packages
+  - python
+  - perl
+  # aur packages
+  - go-git
+  # packages from papyros repo
+  - papyros-shell
+  script:
+  - "./csvInstall.sh"
+
