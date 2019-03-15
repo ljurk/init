@@ -1,6 +1,8 @@
 NAME;DESCRIPTION
 python;
 python2;
+python-pip;
+python2-pip;
 i3blocks;
 zsh;
 firefox;

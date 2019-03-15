@@ -6,30 +6,29 @@ IFS=";"
 #update
 sudo pacman -Syu --noconfirm > /dev/null
 
-
+echo "###############PACMAN-PACKAGES###############"
 #install pacman packages
 sed 1d ./prg.csv | while read NAME DESCRIPTION
 do
-    sudo pacman --noconfirm -S $NAME > /dev/null
     echo "installing $NAME : $DESCRIPTION"
+    sudo pacman --noconfirm -S $NAME > /dev/null
 done 
 
-#install pip2.7
-wget https://bootstrap.pypa.io/get-pip.py | sudo python2.7
-wget https://bootstrap.pypa.io/get-pip.py | sudo python3.7
-pip3.7 install --upgrade pip
-pip2.7 install --upgrade pip
+echo "###############PIP-PACKAGES###############"
+#upgrade pip
+pip install --upgrade pip
+pip2 install --upgrade pip
 
 #install pip packages
 sed 1d ./pip.csv | while read NAME DESCRIPTION PIP_VERSION
 do
     if [ $PIP_VERSION == "3.7" ]
     then
-        pip install $NAME --user > /dev/null
         echo "pip installing $NAME : $DESCRIPTION"
+        pip3 install $NAME --user > /dev/null
     else
-        pip2.7 install $NAME --user > /dev/null
         echo "pip2.7 installing $NAME : $DESCRIPTION"
+        pip2 install $NAME --user > /dev/null
     fi
 done 
 
