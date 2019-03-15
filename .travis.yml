@@ -14,8 +14,12 @@ arch:
   - go-git
   # packages from papyros repo
   - papyros-shell
+  - screenfetch-git
   script:
+  - sudo screenfetch
   - "./csvInstall.sh"
+  - echo "ciao from arch"
 
 script:
-- "./csvInstall.sh"
+- echo "hello from outside"
+  #- "./csvInstall.sh"
