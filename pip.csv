@@ -1,4 +1,4 @@
-NAME;DESCRIPTION;PIP_VERSION
-keepmenu;"cli for keepass";3.7
-powerline-status;"powerline";3.7
-platformio;"platformio-cli";2.7
+NAME,DESCRIPTION,PIP_VERSION
+keepmenu,"cli for keepass",3.7
+powerline-status,"powerline",3.7
+platformio,"platformio-cli",2.7

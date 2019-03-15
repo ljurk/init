@@ -1,7 +1,7 @@
 #!/bin/bash
 
 OLDIFS=$IFS
-IFS=";"
+IFS=","
 
 #exit at first error
 if [ $1 == "test" ]

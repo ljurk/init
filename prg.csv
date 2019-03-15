@@ -1,19 +1,19 @@
-NAME;DESCRIPTION
-wget;retrieve files from www
-python;python 3.7 - scripting
-python2;python 2.7 - scripting
-python-pip;python 3.7 package manager
-python2-pip;python 2.7 package manager
-i3blocks;statusbar for i3
-zsh;a hipper shell
-firefox;browsing www
-remmina;remote session manager
-freerdp;rdp extension for remmina
-thunderbird;a mail client
-cadence;a gui for jack
-pavucontrol;pulseaudio mixer
-pandoc;converting stuff
-texlive-core;to convert to pdf
-texlive-fontsextra;with cool fonts
-zathura;pdf viewer
-zathura-pdf-mupdf;pdf extension
+NAME,DESCRIPTION
+wget,retrieve files from www
+python,python 3.7 - scripting
+python2,python 2.7 - scripting
+python-pip,python 3.7 package manager
+python2-pip,python 2.7 package manager
+i3blocks,statusbar for i3
+zsh,a hipper shell
+firefox,browsing www
+remmina,remote session manager
+freerdp,rdp extension for remmina
+thunderbird,a mail client
+cadence,a gui for jack
+pavucontrol,pulseaudio mixer
+pandoc,converting stuff
+texlive-core,to convert to pdf
+texlive-fontsextra,with cool fonts
+zathura,pdf viewer
+zathura-pdf-mupdf,pdf extension
