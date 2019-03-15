@@ -10,10 +10,7 @@ arch:
   # pacman packages
   - python
   - perl
-  # aur packages
-  - go-git
-  # packages from papyros repo
-  - papyros-shell
+  - wget
   - screenfetch-git
   script:
   - sudo screenfetch
