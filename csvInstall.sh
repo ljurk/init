@@ -8,11 +8,14 @@ sudo pacman -Syu --noconfirm > /dev/null
 
 #install pip2.7
 wget https://bootstrap.pypa.io/get-pip.py | sudo python2.7
+wget https://bootstrap.pypa.io/get-pip.py | sudo python3.7
+pip3.7 install --upgrade pip
+pip2.7 install --upgrade pip
 
 #install pacman packages
 sed 1d ./prg.csv | while read NAME DESCRIPTION
 do
-    #sudo pacman --noconfirm -S $NAME > /dev/null
+    sudo pacman --noconfirm -S $NAME > /dev/null
     echo "installing $NAME : $DESCRIPTION"
 done 
 
@@ -28,6 +31,7 @@ do
         echo "pip2.7 installing $NAME : $DESCRIPTION"
     fi
 done 
+
 #need udev rules for uploading. see: https://docs.platformio.org/en/latest/faq.html#platformio-udev-rules
 curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/scripts/99-platformio-udev.rule    s | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
 IFS=$OLDIFS
