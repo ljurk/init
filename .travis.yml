@@ -13,6 +13,7 @@ arch:
   - wget
   - screenfetch-git
   script:
+  - echo "hello from arch"
   - sudo screenfetch
   - "./csvInstall.sh"
   - echo "ciao from arch"
@@ -20,4 +21,4 @@ arch:
 script:
 - echo "hello from outside"
 - "curl -s https://raw.githubusercontent.com/mikkeloscar/arch-travis/master/arch-travis.sh | bash"
-  #- "./csvInstall.sh"
+- echo "ciao from outside"
