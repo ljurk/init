@@ -22,8 +22,8 @@ done
 
 echo "###############PIP-PACKAGES###############"
 #upgrade pip
-pip install --upgrade pip
-pip2 install --upgrade pip
+pip install --upgrade pip --user
+pip2 install --upgrade pip --user
 
 #install pip packages
 sed 1d ./pip.csv | while read NAME DESCRIPTION PIP_VERSION

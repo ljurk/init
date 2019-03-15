@@ -9,7 +9,6 @@ arch:
   script:
   - echo "hello from arch"
   - "./csvInstall.sh test"
-  - echo "ciao from arch"
 
 script:
 - echo "hello from outside"
