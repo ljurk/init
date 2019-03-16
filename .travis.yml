@@ -8,6 +8,7 @@ services:
 arch:
   script:
   - echo "hello from arch"
+  - "./install.sh"
   - "./install.sh test"
 
 script:
