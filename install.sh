@@ -4,14 +4,18 @@
 OLDIFS=$IFS
 IFS=","
 
-if [ $1 == "test" ]
+if [ "$#" == "1" ]
 then
-    #exit at first error
-    set -e
+    if [ "$1" == "test" ]
+    then
+        #exit at first error
+        set -e
+    fi
 fi
 
 echo "###############PACMAN-PACKAGES###############"
 #update
+echo "update pacman packages"
 sudo pacman -Syu --noconfirm > /dev/null
 
 #install pacman packages
@@ -52,7 +56,7 @@ IFS=$OLDIFS
 #install fonts
 rm -rf /tmp/fonts
 git clone https://github.com/powerline/fonts.git --depth=1 /tmp/fonts
-sed -i 's#$HOME/.local/share/fonts#$HOME/.fonts#g' /tmp/fonts/install.sh
+#sed -i 's#$HOME/.local/share/fonts#$HOME/.fonts#g' /tmp/fonts/install.sh
 /tmp/fonts/install.sh
 
 #platformio need udev rules for uploading. see: https://docs.platformio.org/en/latest/faq.html#platformio-udev-rules
