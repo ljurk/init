@@ -64,6 +64,8 @@ curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/
 
 #install my dotfiles
 git clone https://github.com/ljurk/dotfiles.git $HOME/dotfiles
+rm -rf $HOME/.bashrc
+rm -rf $HOME/.bash_profile
 (cd $HOME/dotfiles ; stow *)
 
 echo "###############DONE###############"
