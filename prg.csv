@@ -18,3 +18,5 @@ texlive-fontsextra,with cool fonts
 zathura,pdf viewer
 zathura-pdf-mupdf,pdf extension
 ttf-font-awesome,
+yay,aur helper
+stow,managing dotfiles
