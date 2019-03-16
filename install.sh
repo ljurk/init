@@ -4,9 +4,9 @@
 OLDIFS=$IFS
 IFS=","
 
-#exit at first error
 if [ $1 == "test" ]
 then
+    #exit at first error
     set -e
 fi
 
@@ -21,6 +21,12 @@ do
     sudo pacman --noconfirm -S $NAME > /dev/null
 done 
 
+#change default shell
+export SHELL=/bin/zsh
+
+#install antigen - zsh package manager
+mkdir $HOME/.antigen
+curl -L git.io/antigen > $HOME/.antigen/antigen.zsh
 
 echo "###############PIP-PACKAGES###############"
 #upgrade pip
@@ -40,8 +46,8 @@ do
     fi
 done 
 
-#change default shell
-export SHELL=/bin/zsh
+# reset IFS
+IFS=$OLDIFS
 
 #install fonts
 rm -rf /tmp/fonts
@@ -51,11 +57,9 @@ sed -i 's#$HOME/.local/share/fonts#$HOME/.fonts#g' /tmp/fonts/install.sh
 
 #platformio need udev rules for uploading. see: https://docs.platformio.org/en/latest/faq.html#platformio-udev-rules
 curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/scripts/99-platformio-udev.rule    s | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
-IFS=$OLDIFS
 
-
-#oh-my-zsh
-sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+#install my dotfiles
+git clone https://github.com/ljurk/dotfiles.git $HOME/dotfiles
+$HOME/dotfiles/updateDotfiles.sh
 
 echo "###############DONE###############"
