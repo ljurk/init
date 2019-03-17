@@ -19,18 +19,18 @@ echo "update pacman packages"
 sudo pacman -Syu --noconfirm > /dev/null
 
 #install pacman packages
-sed 1d ./prg.csv | while read NAME DESCRIPTION
+sed 1d ./prg.csv | while read -r NAME DESCRIPTION
 do
     echo "installing $NAME : $DESCRIPTION"
-    sudo pacman --noconfirm -S $NAME > /dev/null
+    sudo pacman --noconfirm -S "$NAME" > /dev/null
 done 
 
 #change default shell
 export SHELL=/bin/zsh
 
 #install antigen - zsh package manager
-mkdir $HOME/.antigen
-curl -L git.io/antigen > $HOME/.antigen/antigen.zsh
+mkdir "$HOME/.antigen"
+curl -L git.io/antigen > "$HOME/.antigen/antigen.zsh"
 
 echo "###############PIP-PACKAGES###############"
 #upgrade pip
@@ -38,15 +38,15 @@ pip install --upgrade pip --user
 pip2 install --upgrade pip --user
 
 #install pip packages
-sed 1d ./pip.csv | while read NAME DESCRIPTION PIP_VERSION
+sed 1d ./pip.csv | while read -r NAME DESCRIPTION PIP_VERSION
 do
-    if [ $PIP_VERSION == "3.7" ]
+    if [ "$PIP_VERSION" == "3.7" ]
     then
         echo "pip installing $NAME : $DESCRIPTION"
-        pip3 install $NAME --user > /dev/null
+        pip3 install "$NAME" --user > /dev/null
     else
         echo "pip2.7 installing $NAME : $DESCRIPTION"
-        pip2 install $NAME --user > /dev/null
+        pip2 install "$NAME" --user > /dev/null
     fi
 done 
 
@@ -63,9 +63,9 @@ git clone https://github.com/powerline/fonts.git --depth=1 /tmp/fonts
 curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/scripts/99-platformio-udev.rule    s | sudo tee /etc/udev/rules.d/99-platformio-udev.rules
 
 #install my dotfiles
-git clone https://github.com/ljurk/dotfiles.git $HOME/dotfiles
-rm -rf $HOME/.bashrc
-rm -rf $HOME/.bash_profile
-(cd $HOME/dotfiles ; stow *)
+git clone https://github.com/ljurk/dotfiles.git "$HOME/dotfiles"
+rm -rf "$HOME/.bashrc"
+rm -rf "$HOME/.bash_profile"
+(cd "$HOME/dotfiles" ; stow ./*)
 
 echo "###############DONE###############"
