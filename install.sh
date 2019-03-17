@@ -66,10 +66,13 @@ curl -fsSL https://raw.githubusercontent.com/platformio/platformio-core/develop/
 git clone https://github.com/ljurk/dotfiles.git "$HOME/dotfiles"
 rm -rf "$HOME/.bashrc"
 rm -rf "$HOME/.bash_profile"
-(cd "$HOME/dotfiles" ; stow ./*)
+rm -rf "$HOME/.i3/config"
+rm -rf "$HOME/.config/ranger"
+rm -rf "$HOME/.Xressources"
+(cd "$HOME/dotfiles" ; stow *)
 
 #setup virtualbox
-sudo modprobe vboxdrv
-sudo modprobe vboxnetflt
+#sudo modprobe vboxdrv
+#sudo modprobe vboxnetflt
 
 echo "###############DONE###############"
