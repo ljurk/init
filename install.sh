@@ -68,4 +68,8 @@ rm -rf "$HOME/.bashrc"
 rm -rf "$HOME/.bash_profile"
 (cd "$HOME/dotfiles" ; stow ./*)
 
+#setup virtualbox
+sudo modprobe vboxdrv
+sudo modprobe vboxnetflt
+
 echo "###############DONE###############"

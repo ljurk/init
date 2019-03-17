@@ -21,6 +21,6 @@ ttf-font-awesome,
 stow,managing dotfiles
 docker,containering
 ruby,
-jack2-dbus,
 pulseaudio-alsa,
 pulseaudio-jack,
+virtualbox,
