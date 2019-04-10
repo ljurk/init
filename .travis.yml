@@ -2,6 +2,12 @@ sudo: required
 
 language: bash
 
+before_install:
+  - sudo apt-get install -y ansible
+addons:
+  apt:
+    update: true
+
 services:
 - docker
 
@@ -9,10 +15,15 @@ arch:
   packages:
   - ansible 
   script:
-  - echo "hello from arch"
+  - echo "start test on arch"
+  - "mkdir -p /home/ljurk"
   - "sudo ansible-playbook -K playbook.yml -v"
+  - echo "end test on arch"
 
 script:
-- echo "hello from outside"
 - "./tests/arch-travis.sh"
-- echo "ciao from outside"
+- echo "start test on ubuntu"
+- "mkdir -p /home/ljurk"
+- "sudo ansible-playbook -K playbook.yml -v"
+- echo "end test on ubuntu"
+

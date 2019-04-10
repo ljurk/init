@@ -54,7 +54,7 @@
   git:
     repo: https://github.com/ljurk/dotfiles.git
     version: master
-    dest: "/home/ljurk/ansibletest2/dotfiles"
+    dest: "/home/ljurk/dotfiles"
     accept_hostkey: yes
 
 - name: Stow configurations
