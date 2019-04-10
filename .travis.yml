@@ -8,7 +8,8 @@ services:
 arch:
   script:
   - echo "hello from arch"
-  - "ansible-playbook -K playbook.yml -v"
+  - "sudo pacman -S ansible"
+  - "sudo ansible-playbook -K playbook.yml -v"
 
 script:
 - echo "hello from outside"
