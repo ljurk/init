@@ -13,8 +13,44 @@
       packages:
         - pandoc
         - git
+        - wget
+        - python
+        - python2
+        - python-pip
+        - python2-pip
+        - i3blocks
+        - zsh
+        - firefox
+        - remmina
+        - freerdp
+        - thunderbird
+        - cadence
+        - pavucontrol
+        - pandoc
+        - texlive-core
+        - texlive-fontsextra
+        - zathura
+        - zathura-pdf-mupdf
+        - ttf-font-awesome
+        - stow
+        - docker
+        - ruby
+        - pulseaudio-alsa
+        - pulseaudio-jack
 
-- name: Clone a private repository into /opt.
+- name: Install pip 3.7 packages
+  pip:
+      name:
+        - keepmenu
+        - powerline-status
+
+- name: Install pip 2.7 packages
+  pip:
+      name:
+        - platformio
+      executable: pip2.7
+
+- name: Clone dotfiles into ~/dotfiles
   git:
     repo: https://github.com/ljurk/dotfiles.git
     version: master
