@@ -1,0 +1,27 @@
+---
+- name: Upgrade packages
+  package:
+    state: latest
+    update_cache: yes
+    upgrade: yes
+
+- name: install packages
+  package:
+    name: "{{ packages }}"
+    state: present
+  vars:
+      packages:
+        - pandoc
+        - git
+
+- name: Clone a private repository into /opt.
+  git:
+    repo: https://github.com/ljurk/dotfiles.git
+    version: master
+    dest: "/home/ljurk/ansibletest2/dotfiles"
+    accept_hostkey: yes
+
+- name: Stow configurations
+  shell: stow *
+  args:
+    chdir: "/home/ljurk/dotfiles"
