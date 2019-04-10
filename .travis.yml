@@ -6,9 +6,10 @@ services:
 - docker
 
 arch:
+  packages:
+  - ansible 
   script:
   - echo "hello from arch"
-  - "sudo pacman -S ansible"
   - "sudo ansible-playbook -K playbook.yml -v"
 
 script:
