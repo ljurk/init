@@ -1,7 +1,7 @@
 ---
 - name: "clone dotfiles {{ dotfiles_path }}"
   git:
-    repo: https://github.com/ljurk/dotfiles.git
+    repo: "{{ dotfiles_url }}"
     version: master
     dest: "{{ dotfiles_path }}"
     accept_hostkey: yes

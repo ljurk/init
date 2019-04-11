@@ -3,6 +3,7 @@
   become: true
   vars:
     - dotfiles_path: "/home/ljurk/dotfiles"
+    - dotfiles_url: "https://github.com/ljurk/dotfiles.git"
   roles: 
     - update
     - prgClient
@@ -12,6 +13,7 @@
   become: true
   vars:
     - dotfiles_path: "/home/ljurk/dotfiles"
+    - dotfiles_url: "https://github.com/ljurk/dotfiles.git"
   roles:
     - update
     - prgServer
