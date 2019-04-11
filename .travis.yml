@@ -17,13 +17,13 @@ arch:
   script:
   - echo "START test on arch"
   - "sudo mkdir -p /home/ljurk"
-  - "sudo ansible-playbook -K playbook.yml -v"
+  - "sudo ansible-playbook playbook.yml -i hosts -v"
   - echo "END test on arch"
 
 script:
 - "./tests/arch-travis.sh"
 - echo "START test on ubuntu"
 - "sudo mkdir -p /home/ljurk"
-- "sudo ansible-playbook -K playbook.yml -v"
+- "sudo ansible-playbook playbook.yml -i hosts -v"
 - echo "END test on ubuntu"
 
