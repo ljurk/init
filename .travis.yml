@@ -17,7 +17,7 @@ arch:
   script:
   - echo "START test on arch"
   - "sudo mkdir -p /home/ljurk"
-  - "sudo ansible-playbook playbook.yml -i hosts -v"
+  - "sudo ansible-playbook playbook.yml -i hosts -l local -v"
   - echo "END test on arch"
 
 script:

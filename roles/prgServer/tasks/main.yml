@@ -1,0 +1,22 @@
+---
+- name: install packages
+  package:
+    name: "{{ packages }}"
+    state: present
+  vars:
+      packages:
+        - pandoc
+        - git
+        - wget
+        - python
+        - python2.7
+        - python-pip
+        - zsh
+        - stow
+        - docker
+        - ruby
+
+- name: Install pip 3.7 packages
+  pip:
+      name:
+        - powerline-status

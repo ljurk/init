@@ -1,0 +1,12 @@
+---
+- name: "clone dotfiles {{ dotfiles_path }}"
+  git:
+    repo: https://github.com/ljurk/dotfiles.git
+    version: master
+    dest: "{{ dotfiles_path }}"
+    accept_hostkey: yes
+
+- name: Stow configurations
+  shell: stow *
+  args:
+    chdir: "{{ dotfiles_path }}"

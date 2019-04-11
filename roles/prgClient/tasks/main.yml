@@ -1,10 +1,4 @@
 ---
-- name: Upgrade packages
-  package:
-    state: latest
-    update_cache: yes
-    upgrade: yes
-
 - name: install packages
   package:
     name: "{{ packages }}"
@@ -49,15 +43,3 @@
       name:
         - platformio
       executable: pip2.7
-
-- name: Clone dotfiles into ~/dotfiles
-  git:
-    repo: https://github.com/ljurk/dotfiles.git
-    version: master
-    dest: "/home/ljurk/dotfiles"
-    accept_hostkey: yes
-
-- name: Stow configurations
-  shell: stow *
-  args:
-    chdir: "/home/ljurk/dotfiles"
