@@ -2,7 +2,7 @@
 - hosts: local
   become: true
   vars:
-    - dotfiles_path: "/home/ljurk/yoyo/xdotfiles"
+    - dotfiles_path: "/home/ljurk/dotfiles"
   roles: 
     - update
     - prgClient
@@ -11,7 +11,7 @@
 - hosts: web
   become: true
   vars:
-    - dotfiles_path: "/home/ljurk/yoyo/2dotfiles"
+    - dotfiles_path: "/home/ljurk/dotfiles"
   roles:
     - update
     - prgServer
