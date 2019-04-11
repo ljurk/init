@@ -15,15 +15,15 @@ arch:
   packages:
   - ansible 
   script:
-  - echo "start test on arch"
-  - "mkdir -p /home/ljurk"
+  - echo "START test on arch"
+  - "sudo mkdir -p /home/ljurk"
   - "sudo ansible-playbook -K playbook.yml -v"
-  - echo "end test on arch"
+  - echo "END test on arch"
 
 script:
 - "./tests/arch-travis.sh"
-- echo "start test on ubuntu"
-- "mkdir -p /home/ljurk"
+- echo "START test on ubuntu"
+- "sudo mkdir -p /home/ljurk"
 - "sudo ansible-playbook -K playbook.yml -v"
-- echo "end test on ubuntu"
+- echo "END test on ubuntu"
 
