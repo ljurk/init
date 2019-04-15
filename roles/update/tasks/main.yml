@@ -1,5 +1,6 @@
 ---
 - name: Upgrade packages
+  become: true
   package:
     state: latest
     update_cache: yes

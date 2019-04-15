@@ -1,5 +1,6 @@
 ---
 - name: install packages
+  become: true
   package:
     name: "{{ packages }}"
     state: present
@@ -32,14 +33,21 @@
         - pulseaudio-alsa
         - pulseaudio-jack
 
+# setup zsh
+- name: setup zsh
+  include_role:
+      name: zsh
+
 - name: Install pip 3.7 packages
   pip:
       name:
         - keepmenu
         - powerline-status
+      extra_args: --user
 
 - name: Install pip 2.7 packages
   pip:
       name:
         - platformio
       executable: pip2.7
+      extra_args: --user

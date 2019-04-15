@@ -1,0 +1,23 @@
+---
+# setup zsh
+- name: delete default .bashrc
+  file:
+      path: "{{ ansible_env.HOME }}/.bashrc"
+      state: absent
+
+- name: create .antigen dir
+  file:
+      path: "{{ ansible_env.HOME }}/.antigen"
+      state: directory
+
+- name: install antigen - a plugin manager for zsh
+  get_url:
+      url: https://raw.githubusercontent.com/zsh-users/antigen/master/bin/antigen.zsh
+      dest: "{{ ansible_env.HOME }}/.antigen/antigen.zsh"
+
+- name: change shell to zsh
+  become: true
+  user:
+      name: "{{ ansible_env.USER }}"
+      shell: /usr/bin/zsh
+      state: present

@@ -1,5 +1,6 @@
 ---
 - name: install packages
+  become: true
   package:
     name: "{{ packages }}"
     state: present
@@ -16,7 +17,12 @@
         - docker
         - ruby
 
+- name: setup zsh
+  include_role:
+      name: zsh
+
 - name: Install pip 3.7 packages
   pip:
       name:
         - powerline-status
+      extra_args: --user
