@@ -3,4 +3,6 @@ web1 ansible_host=192.168.1.100 ansible_ssh_user=ljurk
 
 [local]
 localhost ansible_connection=local
-vagrant ansible_host=127.0.0.1 ansible_port=2200 ansible_user='vagrant' ansible_ssh_private_key_file='/home/ljurk/.vagrant.d/insecure_private_key'
+
+[vagrant]
+vag1 ansible_host=127.0.0.1 ansible_port=2200 ansible_user='vagrant' ansible_ssh_private_key_file='/home/ljurk/.vagrant.d/insecure_private_key'

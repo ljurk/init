@@ -1,19 +1,17 @@
 ---
 - hosts: local
-  become: true
   vars:
-    - dotfiles_path: "/home/ljurk/dotfiles"
-    - dotfiles_url: "https://github.com/ljurk/dotfiles.git"
+    - dotfiles_path: "{{ ansible_env.HOME }}/.dot"
+    - dotfiles_url: "https://github.com/ljurk/dot.git"
   roles: 
     - update
-    - prgClient
+    - prgServer
     - dotfiles
 
 - hosts: web
-  become: true
   vars:
-    - dotfiles_path: "/home/ljurk/dotfiles"
-    - dotfiles_url: "https://github.com/ljurk/dotfiles.git"
+    - dotfiles_path: "{{ ansible_env.HOME }}/.dot"
+    - dotfiles_url: "https://github.com/ljurk/dot.git"
   roles:
     - update
     - prgServer
