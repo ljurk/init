@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ljurk/initialLinuxInstallation.svg?branch=ansible)](https://travis-ci.org/ljurk/initialLinuxInstallation)
+[![Build Status](https://travis-ci.org/ljurk/init.svg?branch=ansible)](https://travis-ci.org/ljurk/init)
 
 # my default Arch installation
 This is my default install script on Arch.
