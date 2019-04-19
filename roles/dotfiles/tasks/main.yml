@@ -1,4 +1,13 @@
 ---
+- name: delete default dotfiles
+  file:
+      path: "{{ ansible_env.HOME }}/{{ item }}"
+      state: absent
+  with_items:
+      - .bashrc
+      - .bash_profile
+      - .Xresources
+
 - name: "clone dotfiles {{ dotfiles_path }}"
   git:
     repo: "{{ dotfiles_url }}"
