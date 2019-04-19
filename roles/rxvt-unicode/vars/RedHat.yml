@@ -1,0 +1,5 @@
+---
+rxvt_unicode_packages:
+  - epel-release
+  - rxvt-unicode
+  - xorg-x11-server-utils

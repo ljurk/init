@@ -1,0 +1,41 @@
+---
+- name: include variable overrides
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+        - "vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+        - "vars/{{ ansible_distribution }}.yml"
+        - "vars/{{ ansible_os_family }}.yml"
+      skip: true
+
+- name: install packages
+  package:
+    name: "{{ i3_packages | default(i3_packages_default) }}"
+    state: "{{ i3_packages_state | default('present') }}"
+  become: yes
+
+- name: create configuration directory
+  file:
+    dest: "{{ i3_conf_dir }}"
+    state: directory
+
+- name: set up pulseaudio group memberships
+  user:
+    append: yes
+    groups: audio
+    user: "{{ lookup('env','USER')}}"
+  become: yes
+
+- name: configure i3
+  template:
+    src: "{{ i3_conf_template }}"
+    dest: "{{ i3_conf_dir }}/{{ i3_conf_file }}"
+
+- name: set up xinitrc
+  lineinfile:
+    dest: ~/.xinitrc
+    state: present
+    create: yes
+    insertafter: EOF
+    regexp: "^exec .*"
+    line: "exec i3"

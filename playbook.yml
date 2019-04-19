@@ -1,10 +1,11 @@
 ---
-- hosts: local
+- hosts: vagrant
   vars:
     - dotfiles_path: "{{ ansible_env.HOME }}/.dot"
     - dotfiles_url: "https://github.com/ljurk/dot.git"
   roles: 
     - update
+    - i3
     - prgServer
     - dotfiles
 
