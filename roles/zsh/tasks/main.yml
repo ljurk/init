@@ -1,10 +1,5 @@
 ---
 # setup zsh
-- name: delete default .bashrc
-  file:
-      path: "{{ ansible_env.HOME }}/.bashrc"
-      state: absent
-
 - name: create .antigen dir
   file:
       path: "{{ ansible_env.HOME }}/.antigen"
