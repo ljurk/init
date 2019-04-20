@@ -6,11 +6,12 @@
     state: present
   vars:
       packages:
+        - rxvt-unicode
+        - vim
         - pandoc
         - git
         - wget
         - python
-        - python2.7
         - python-pip
         - zsh
         - stow
