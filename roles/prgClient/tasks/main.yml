@@ -6,6 +6,8 @@
     state: present
   vars:
       packages:
+        - binutils
+        - fakeroot
         - pandoc
         - git
         - vim
@@ -13,7 +15,6 @@
         - wget
         - python
         - python-pip
-        - i3blocks
         - zsh
         - firefox
         - remmina
@@ -25,13 +26,22 @@
         - texlive-core
         - texlive-fontsextra
         - zathura
+        - pcmanfm
         - zathura-pdf-mupdf
-        - ttf-font-awesome
         - stow
         - docker
         - ruby
         - pulseaudio-alsa
         - pulseaudio-jack
+
+# install this module first: https://github.com/kewlfft/ansible-aur
+- name: install aur packages
+  aur:
+    name: "{{ packages }}"
+    skip_installed: true
+  vars:
+      packages:
+        - ttf-font-awesome-4
 
 # setup zsh
 - name: setup zsh
@@ -45,9 +55,9 @@
         - powerline-status
       extra_args: --user
 
-- name: Install pip 2.7 packages
-  pip:
-      name:
-        - platformio
-      executable: pip2.7
-      extra_args: --user
+- name: "clone scripts {{ scripts_path }}"
+  git:
+    repo: "{{ scripts_url }}"
+    version: master
+    dest: "{{ scripts_path }}"
+    accept_hostkey: yes
