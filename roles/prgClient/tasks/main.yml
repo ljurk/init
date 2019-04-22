@@ -6,8 +6,10 @@
     state: present
   vars:
       packages:
+        # dependency for makepkg
         - binutils
         - fakeroot
+        # tools
         - pandoc
         - git
         - vim
@@ -16,23 +18,24 @@
         - python
         - python-pip
         - zsh
-        - firefox
-        - remmina
-        - freerdp
-        - thunderbird
-        - cadence
-        - pavucontrol
-        - pandoc
         - texlive-core
         - texlive-fontsextra
-        - zathura
-        - pcmanfm
         - zathura-pdf-mupdf
         - stow
         - docker
         - ruby
         - pulseaudio-alsa
         - pulseaudio-jack
+        - tmux
+        # gui tools
+        - firefox
+        - remmina
+        - freerdp
+        - thunderbird
+        - cadence
+        - pavucontrol
+        - zathura
+        - pcmanfm
 
 # install this module first: https://github.com/kewlfft/ansible-aur
 - name: install aur packages
@@ -42,6 +45,7 @@
   vars:
       packages:
         - ttf-font-awesome-4
+        - networkmanager-dmenu-git
 
 # setup zsh
 - name: setup zsh
