@@ -6,24 +6,4 @@
     state: present
   vars:
       packages:
-        - rxvt-unicode
-        - vim
-        - pandoc
-        - git
-        - wget
-        - python
-        - python-pip
-        - zsh
-        - stow
-        - docker
-        - ruby
-
-- name: setup zsh
-  include_role:
-      name: zsh
-
-- name: Install pip 3.7 packages
-  pip:
-      name:
-        - powerline-status
-      extra_args: --user
+        - apache2

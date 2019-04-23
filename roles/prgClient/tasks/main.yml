@@ -6,27 +6,12 @@
     state: present
   vars:
       packages:
-        # dependency for makepkg
-        - binutils
-        - fakeroot
         # tools
-        - pandoc
-        - git
-        - vim
-        - rxvt-unicode
-        - wget
-        - python
-        - python-pip
-        - zsh
         - texlive-core
         - texlive-fontsextra
         - zathura-pdf-mupdf
-        - stow
-        - docker
-        - ruby
         - pulseaudio-alsa
         - pulseaudio-jack
-        - tmux
         # gui tools
         - firefox
         - remmina
@@ -47,21 +32,3 @@
         - ttf-font-awesome-4
         - networkmanager-dmenu-git
 
-# setup zsh
-- name: setup zsh
-  include_role:
-      name: zsh
-
-- name: Install pip 3.7 packages
-  pip:
-      name:
-        - keepmenu
-        - powerline-status
-      extra_args: --user
-
-- name: "clone scripts {{ scripts_path }}"
-  git:
-    repo: "{{ scripts_url }}"
-    version: master
-    dest: "{{ scripts_path }}"
-    accept_hostkey: yes

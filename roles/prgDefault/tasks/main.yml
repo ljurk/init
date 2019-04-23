@@ -1,0 +1,43 @@
+---
+- name: install packages
+  become: true
+  package:
+    name: "{{ packages }}"
+    state: present
+  vars:
+      packages:
+        # dependency for makepkg
+        - binutils
+        - fakeroot
+        # tools
+        - pandoc
+        - git
+        - vim
+        - rxvt-unicode
+        - wget
+        - python
+        - python-pip
+        - zsh
+        - stow
+        - docker
+        - ruby
+        - tmux
+
+# setup zsh
+- name: setup zsh
+  include_role:
+      name: zsh
+
+- name: Install pip 3.7 packages
+  pip:
+      name:
+        - keepmenu
+        - powerline-status
+      extra_args: --user
+
+- name: "clone scripts {{ scripts_path }}"
+  git:
+    repo: "{{ scripts_url }}"
+    version: master
+    dest: "{{ scripts_path }}"
+    accept_hostkey: yes
