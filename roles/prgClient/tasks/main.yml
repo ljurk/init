@@ -13,6 +13,10 @@
         - zathura-pdf-mupdf
         - pulseaudio-alsa
         - pulseaudio-jack
+        - gtk2
+        - gtk3
+        - adapta-gtk-theme
+        - papirus-icon-theme
         # gui tools
         - firefox
         - remmina
@@ -32,4 +36,5 @@
       packages:
         - ttf-font-awesome-4
         - networkmanager-dmenu-git
+        - xcursor-breeze
 
