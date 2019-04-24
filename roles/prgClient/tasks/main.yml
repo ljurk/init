@@ -36,6 +36,15 @@
       state: started
       enabled: yes
 
+- name: set up xinitrc
+  lineinfile:
+    dest: ~/.xinitrc
+    state: present
+    create: yes
+    insertafter: EOF
+    regexp: "^exec .*"
+    line: "exec nm-applet"
+
 # install this module first: https://github.com/kewlfft/ansible-aur
 - name: install aur packages
   aur:
