@@ -13,6 +13,8 @@
         - zathura-pdf-mupdf
         - pulseaudio-alsa
         - pulseaudio-jack
+        - networkmanager
+        # gtk
         - gtk2
         - gtk3
         - adapta-gtk-theme
@@ -26,6 +28,13 @@
         - pavucontrol
         - zathura
         - pcmanfm
+        - nm-applet
+
+- name: activate networkmanager
+  systemd:
+      name: NetworkManager
+      state: started
+      enabled: yes
 
 # install this module first: https://github.com/kewlfft/ansible-aur
 - name: install aur packages
