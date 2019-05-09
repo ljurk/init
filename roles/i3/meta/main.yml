@@ -21,7 +21,3 @@ galaxy_info:
         - jessie
   galaxy_tags:
     - i3
-
-dependencies:
-  - role: rxvt-unicode
-    version: 1.0.1

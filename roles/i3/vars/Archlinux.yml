@@ -8,3 +8,5 @@ i3_packages_default:
   - xorg-server
   - xorg-xinit
   - dmenu
+  - dunst
+  - libnotify
