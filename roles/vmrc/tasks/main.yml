@@ -1,0 +1,44 @@
+---
+- name: install dependencys
+  become: true
+  package:
+      name: "{{ packages }}"
+      state: present
+  vars:
+      packages:
+        # dependency for makepkg
+        - binutils
+        - fakeroot
+        #dependency for ncurse
+        - gcc-libs
+        - gcc
+        - glibc
+        - make
+
+# install this module first: https://github.com/kewlfft/ansible-aur
+- name: install aur packages without pgp check
+  aur:
+    name: "{{ packages }}"
+    skip_installed: true
+    skip_pgp_check: true
+  vars:
+      packages:
+        # dependency for vmrc
+        - ncurses5-compat-libs
+
+- name: "get vmrc bundle"
+  become: true
+  copy:
+    src: "{{ vmrc_url }}"
+    dest: "/tmp/vmrc.bundle"
+    mode: 0776
+
+- name: check for /etc/init.d
+  become: true
+  file:
+      path: /etc/init.d
+      state: directory
+
+- name: install vmrc interactively
+  become: true
+  command: /bin/sh -c "yes n| /tmp/vmrc.bundle --console --eulas-agreed"
