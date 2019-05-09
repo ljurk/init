@@ -5,13 +5,16 @@
     - dotfiles_url: "https://github.com/ljurk/dot.git"
     - scripts_path: "{{ ansible_env.HOME }}/.scripts"
     - scripts_url: "https://github.com/ljurk/scripts.git"
+    - vmrc_url: /home/ljurk/Downloads/VMware-Remote-Console-10.0.4-11818843.x86_64.bundle
     - all_users:
         - user: vagrant
           homedir: /home/vagrant
   roles: 
      - update
+     - prgDefault
      - prgClient
      - powerline-fonts
      - i3
      - dotfiles
+     - vmrc
 
