@@ -14,6 +14,7 @@
         - pulseaudio-alsa
         - pulseaudio-jack
         - networkmanager
+        - acpi
         # gtk
         - gtk2
         - gtk3
@@ -28,13 +29,21 @@
         - pavucontrol
         - zathura
         - pcmanfm
-        - nm-applet
+        - network-manager-applet
+        - xfce4-power-manager
+        - xorg-xrandr
+        - autorandr
+        - lightdm
+        - lightdm-gtk-greeter
 
 - name: activate networkmanager
   systemd:
-      name: NetworkManager
-      state: started
+      name: "{{ item }}"
       enabled: yes
+  with_items:
+        - lightdm
+        - NetworkManager
+        - autorandr
 
 - name: set up xinitrc
   lineinfile:
