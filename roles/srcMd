@@ -1,0 +1,17 @@
+#!/bin/sh
+
+docs="~/projects/mk/docs/roles"
+
+for D in `find .  -mindepth 1 -maxdepth 1 -type d`
+do
+    src="./$D/tasks/main.yml"
+    output="$D.md"
+    echo '~~~~' | cat - $src > temp && mv temp $output
+    echo '~~~~' >> $output
+    docspath="$docs/$output"
+    realpath $output 
+    #echo $output
+    echo $docspath
+done
+
+
