@@ -1,17 +1,32 @@
 #!/bin/sh
 
-docs="/home/ljurk/projects/mk/docs/roles"
+docs="/home/ljurk/projects/mk/docs"
+rolepath='/home/ljurk/projects/init/roles'
+playbookpath='/home/ljurk/projects/init/'
 
-for D in `find .  -mindepth 1 -maxdepth 1 -type d |sed 's#\.\/##g' `
+#roles
+for D in $(find .  -mindepth 1 -maxdepth 1 -type d |sed 's#\.\/##g')
 do
-    src="./$D/tasks/main.yml"
+    src="$rolepath/$D/tasks/main.yml"
     output="$D.md"
-    echo '~~~~' | cat - $src > temp && mv temp $output
-    echo '~~~~' >> $output
-    docspath="$docs/$output"
-    real=$(realpath $output)
-    ln -s $real $docspath
+    echo '~~~~' | cat - "$src" > temp && mv temp "$output"
+    echo '~~~~' >> "$output"
+    docspath="${docs}/roles/$output"
+    real=$(realpath "$output")
+    rm "$docspath"
+    ln -s "$real" "$docspath"
     echo "link $output to $docspath"
 done
 
-
+#playbooks
+for D in "$playbookpath"*.yml
+do
+    output=$(echo "$D" | sed 's#\.yml#\.md#g' | sed 's/.*\///')
+    echo '~~~~' | cat - "$D" > temp && mv temp "$output"
+    echo '~~~~' >> "$output"
+    docspath="${docs}/playbooks/$output"
+    real=$(realpath "$output")
+    rm "$docspath"
+    ln -s "$real" "$docspath"
+    echo "link $output to $docspath"
+done
