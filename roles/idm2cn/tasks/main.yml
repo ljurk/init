@@ -1,0 +1,26 @@
+---
+- name: install packages
+  become: true
+  package:
+    name: "{{ packages }}"
+    state: present
+  vars:
+      packages:
+        - subversion
+
+
+- name: Install pip 3.7 packages
+  pip:
+      name:
+        - gunicorn
+        - flask
+        - flask_restful
+      extra_args: --user
+  tags: pip
+
+
+- name: Export subversion directory to folder
+  subversion:
+    repo: svn+ssh://172.22.1.153/svn/siff
+    dest: "{{ ansible_env.HOME }}/siff"
+
