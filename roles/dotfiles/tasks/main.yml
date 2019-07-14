@@ -1,9 +1,12 @@
 ---
+# Author: Lukn
+# Description: installs dotfiles specified in the given url
 - name: delete default dotfiles
   file:
       path: "{{ ansible_env.HOME }}/{{ item }}"
       state: absent
   with_items:
+      - .dot
       - .bashrc
       - .bash_profile
       - .Xresources

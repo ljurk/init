@@ -6,21 +6,25 @@
     state: present
   vars:
       packages:
+        - apache2
         - subversion
-
-
-- name: Install pip 3.7 packages
-  pip:
-      name:
-        - gunicorn
-        - flask
-        - flask_restful
-      extra_args: --user
-  tags: pip
-
+        - python3-dev
+        - python3-ldap
 
 - name: Export subversion directory to folder
   subversion:
-    repo: svn+ssh://172.22.1.153/svn/siff
+    repo: svn+ssh://172.22.1.153/svn/siff/trunk
     dest: "{{ ansible_env.HOME }}/siff"
+    force: true
 
+- name: Install pip 3.7 packages
+  pip:
+      requirements: "{{ ansible_env.HOME}}/siff/requirements.txt"
+      executable: pip3
+  become: true
+  tags: pip
+
+- name: run api
+  gunicorn:
+      app: 'api'
+      chdir: '{{ ansible_env.HOME }}/siff'

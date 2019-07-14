@@ -6,20 +6,16 @@
     state: present
   vars:
       packages:
-        # dependency for makepkg
-        - binutils
-        - fakeroot
         # tools
         - pandoc
         - git
         - vim
-        - rxvt-unicode
         - wget
-        - python
+        - python3.7
         - python-pip
+        - python3-pip
         - zsh
         - stow
-        - docker
         - ruby
         - tmux
 
@@ -31,9 +27,10 @@
 - name: Install pip 3.7 packages
   pip:
       name:
-        - keepmenu
-        - powerline-status
+          - powerline-status
       extra_args: --user
+      executable: pip3
+  tags: pip
 
 - name: "clone scripts {{ scripts_path }}"
   git:

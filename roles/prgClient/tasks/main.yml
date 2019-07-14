@@ -6,6 +6,9 @@
     state: present
   vars:
       packages:
+        # dependency for makepkg
+        - binutils
+        - fakeroot
         # tools
         - termite
         - texlive-core
@@ -15,6 +18,8 @@
         - pulseaudio-jack
         - networkmanager
         - acpi
+        - bat
+        - dash
         # gtk
         - gtk2
         - gtk3
@@ -64,4 +69,13 @@
         - ttf-font-awesome-4
         - networkmanager-dmenu-git
         - xcursor-breeze
+
+- name: Install pip 2.7 packages
+  pip:
+      name:
+        - keepmenu
+      executable: pip2
+  become: true
+  tags: pip
+
 
