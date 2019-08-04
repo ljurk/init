@@ -1,0 +1,26 @@
+---
+# Author: Lukn
+# Description: installs dotfiles specified in the given url
+
+- name: install packages
+  become: true
+  package:
+    name: "{{ packages }}"
+    state: present
+  vars:
+      packages:
+        - apache2
+        - php7.3
+        - ffmpeg
+        - gpac
+
+- name: "clone repo from https://github.com/silvanmelchior/RPi_Cam_Web_Interface.git"
+  git:
+    repo: "{{ cameraWebInterface_git_repo }}"
+    version: master
+    dest: "{{ cameraWebInterface_dest }}"
+    accept_hostkey: yes
+  become: true
+
+- debug:
+    msg: "run installer script under {{ cameraWebInterface_dest }}"

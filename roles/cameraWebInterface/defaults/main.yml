@@ -1,0 +1,3 @@
+---
+cameraWebInterface_git_repo: https://github.com/silvanmelchior/RPi_Cam_Web_Interface.git
+cameraWebInterface_dest: /opt/cam
