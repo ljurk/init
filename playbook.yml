@@ -1,12 +1,16 @@
 ---
-- hosts: vagrant
+- hosts: midi
   vars:
     - dotfiles_path: "{{ ansible_env.HOME }}/.dot"
     - dotfiles_url: "https://github.com/ljurk/dot.git"
+    - scripts_path: "{{ ansible_env.HOME }}/.scripts"
+    - scripts_url: "https://github.com/ljurk/scripts.git"
+    - all_users:
+        - user: ljurk
+          homedir: /home/ljurk
   roles: 
     - update
-    - i3
-    - prgServer
+    - prgDefault
     - dotfiles
 
 - hosts: web
@@ -15,5 +19,6 @@
     - dotfiles_url: "https://github.com/ljurk/dot.git"
   roles:
     - update
+    - prgDefault
     - prgServer
     - dotfiles
