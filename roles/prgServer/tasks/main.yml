@@ -10,6 +10,26 @@
         - php7.3
         - ufw
 
+#networking
+- name: disable dhcp
+  service:
+      name: dhcpcd
+      state: stopped
+  become: true
+
+- name: set static ip
+  template:
+      src: interfaces.j2
+      dest: /etc/network/interfaces
+  register: restart_networking
+  become: true
+
+- name: reboot if ip has changed
+  reboot:
+  when: restart_networking is changed
+  become: true
+
+
 #firewall
 - name: Open ufw ports for ssh, http & https
   become: true
@@ -23,25 +43,16 @@
 - name: Disable empty password login
   lineinfile: dest={{ server_sshd_config }} regexp="^#?PermitEmptyPasswords" line="PermitEmptyPasswords no"
   notify: restart sshd
+  become: true
 
 - name: Disable remote root login
   lineinfile: dest={{ server_sshd_config }} regexp="^#?PermitRootLogin" line="PermitRootLogin no"
   notify: restart sshd
+  become: true
 
 - name: Disable password login
   lineinfile: dest={{ server_sshd_config }} regexp="^(#\s*)?PasswordAuthentication " line="PasswordAuthentication no"
   notify: restart sshd
-
-#networking
-- name: set static ip
-  template:
-      src: interfaces.j2
-      dest: /etc/network/interfaces
-  notify: restart networking
   become: true
 
-- name: disable dhcp
-  service:
-      name: dhcpcd
-      state: stopped
-  become: true
+

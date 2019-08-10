@@ -4,9 +4,3 @@
     name: "{{ server_sshd }}"
     state: restarted
   become: true
-
-- name: restart networking
-  service:
-      name: networking
-      state: restarted
-  become: true

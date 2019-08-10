@@ -53,13 +53,19 @@
 
 - name: "Build Diffie-Hellman parameters and key generation"
   become: yes
-  shell: >
-    ./easyrsa gen-dh;
-    openvpn --genkey --secret ta.key;
+  shell: ./easyrsa gen-dh;
   args:
     chdir: "{{ openvpn_install_dir }}/openvpn-ca/"
     executable: /bin/bash
     creates: "{{ openvpn_install_dir }}/openvpn-ca/pki/dh.pem"
+
+- name: "Generate ta.key"
+  become: true
+  shell: openvpn --genkey --secret ta.key;
+  args:
+    chdir: "{{ openvpn_install_dir }}/openvpn-ca/"
+    executable: /bin/bash
+    creates: "{{ openvpn_install_dir }}/openvpn-ca/ta.key"
 
 - name: "rename dh.pem to dh2048.pem"
   copy:
