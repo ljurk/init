@@ -1,0 +1,7 @@
+---
+server_sshd: sshd
+server_sshd_config: /etc/ssh/sshd_config
+server_ip_address: 192.168.1.6
+server_ip_netmask: 255.255.255.0
+server_ip_gateway: 192.168.1.1
+server_ip_nameservers: 192.168.1.1

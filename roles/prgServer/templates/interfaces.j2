@@ -1,0 +1,11 @@
+source-directory /etc/network/interfaces.d
+
+
+# Ethernet
+auto eth0
+allow-hotplug eth0
+iface eth0 inet static
+address {{ server_ip_address }}
+netmask {{ server_ip_netmask }}
+gateway {{ server_ip_gateway }}
+dns-nameservers {{ server_ip_nameservers }}
