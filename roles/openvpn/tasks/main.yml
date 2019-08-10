@@ -1,0 +1,210 @@
+---
+- name: Install openvpn
+  package:
+   name: "{{ item }}"
+   state: present
+  with_items:
+    - openvpn
+    - easy-rsa
+  become: true
+
+- name: "Create CA dir"
+  become: yes
+  command: make-cadir {{ openvpn_install_dir }}/openvpn-ca
+  args:
+    creates: "{{ openvpn_install_dir }}/openvpn-ca"
+
+- name: Customize CA variable configuration
+  lineinfile:
+    dest: "{{ openvpn_install_dir }}/openvpn-ca/vars"
+    regexp: "^{{ item.property | regex_escape() }}="
+    line: "{{ item.property }}={{ item.value }}"
+  with_items:
+    - { property: 'export EASYRSA_REQ_CN', value: '{{ openvpn_server_name }}' }
+    - { property: 'export KEY_NAME', value: '"server"' }
+    - { property: 'export KEY_COUNTRY', value: '"DE"' }
+    - { property: 'export KEY_PROVINCE', value: '"CA"' }
+    - { property: 'export KEY_CITY', value: '"SF"' }
+    - { property: 'export KEY_ORG', value: '"MT"' }
+    - { property: 'export KEY_EMAIL', value: '"{{ openvpn_ca_email }}"' }
+    - { property: 'export KEY_OU', value: '"MT"' }
+    - { property: 'export KEY_CONFIG', value: '{{ openvpn_install_dir }}/openvpn-ca/openssl-1.0.0.cnf' }
+    - { property: 'export KEY_DIR', value: '{{ openvpn_install_dir }}/openvpn-ca/keys' }
+  become: true
+
+- name: "Build the certificate authority"
+  become: yes
+  shell: >
+    ./easyrsa init-pki;
+    ./easyrsa --batch build-ca nopass;
+  args: 
+    chdir: "{{ openvpn_install_dir }}/openvpn-ca/"
+    executable: /bin/bash
+    creates: "{{ openvpn_install_dir }}/openvpn-ca/pki/ca.crt"
+
+- name: "Build server certificate"
+  become: yes
+  shell: >
+    ./easyrsa build-server-full server nopass;
+  args:
+    chdir: "{{ openvpn_install_dir }}/openvpn-ca/"
+    executable: /bin/bash
+    creates: "{{ openvpn_install_dir }}/openvpn-ca/pki/reqs/server.req"
+
+- name: "Build Diffie-Hellman parameters and key generation"
+  become: yes
+  shell: >
+    ./easyrsa gen-dh;
+    openvpn --genkey --secret ta.key;
+  args:
+    chdir: "{{ openvpn_install_dir }}/openvpn-ca/"
+    executable: /bin/bash
+    creates: "{{ openvpn_install_dir }}/openvpn-ca/pki/dh.pem"
+
+- name: "rename dh.pem to dh2048.pem"
+  copy:
+     remote_src=True
+     src="{{ openvpn_install_dir }}/openvpn-ca/pki/dh.pem"
+     dest="{{ openvpn_install_dir }}/openvpn-ca/pki/dh2048.pem"
+  become: true
+
+- name: "Copy key and certificates to /etc/openvpn"
+  become: yes
+  copy:
+    remote_src: yes
+    src: "{{ openvpn_install_dir }}/openvpn-ca/{{ item }}"
+    dest: "/etc/openvpn/"
+  with_items:
+    - "pki/ca.crt"
+    - "pki/issued/server.crt"
+    - "pki/private/server.key"
+    - "ta.key"
+    - "pki/dh2048.pem"
+
+- name: "Generate server.conf from sample config"
+  become: yes
+  shell: >
+     gzip -d -c /usr/share/doc/openvpn/examples/sample-config-files/server.conf.gz | sudo tee /etc/openvpn/server.conf > /dev/null
+  args:
+    creates: /etc/openvpn/server.conf
+
+- name: "Adjust OpenVPN server configuration"
+  lineinfile:
+    dest: "/etc/openvpn/server.conf"
+    regexp: "^{{ item.regex | regex_escape() }}"
+    line: "{{ item.value }}"
+  with_items:
+    - { regex: ';user nobody', value: 'user nobody' }
+    - { regex: ';group nogroup', value: 'group nogroup' }
+    - { regex: ';push "redirect-gateway def1 bypass-dhcp"', value: 'push "redirect-gateway def1 bypass-dhcp"' }
+    - { regex: 'cert server.crt', value: 'cert server.crt' }
+    - { regex: 'key server.key', value: 'key server.key' }
+  become: true  
+
+- name: Configuration IP forwarding
+  become: true
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: 1
+    state: present
+
+- name: Add ufw before content
+  become: true
+  blockinfile:
+    path: /etc/ufw/before.rules
+    insertbefore: BOF
+    content: |
+      # NAT table rules
+      *nat
+      :POSTROUTING ACCEPT [0:0]
+      -A POSTROUTING -s 10.8.0.0/8 -o eth0 -j MASQUERADE
+      COMMIT
+
+- name: Customize ufw forwarding policy
+  become: true
+  lineinfile:
+    line: "DEFAULT_FORWARD_POLICY=\"ACCEPT\""
+    path: "/etc/default/ufw"
+    regexp: "^DEFAULT_FORWARD_POLICY=\"DROP\""
+
+- name: Open ufw ports for openvpn and ssh
+  become: true
+  shell:  ufw allow openvpn && ufw allow OpenSSH
+
+- name: Enable ufw
+  become: true
+  shell: ufw --force enable
+
+- name: Start openvpn systemd service
+  become: true
+  systemd:
+    name: openvpn@server
+    state: started
+    daemon_reload: yes
+    enabled: yes
+
+- name: "Generate client certificate key"
+  become: yes
+  shell: ./easyrsa --batch build-client-full {{ openvpn_client_name }} nopass
+  args:
+    chdir: "{{ openvpn_install_dir }}/openvpn-ca/"
+    executable: /bin/bash
+    creates: "{{ openvpn_install_dir }}/openvpn-ca/pki/reqs/{{ openvpn_client_name }}.req"
+
+- name: "Create client certificate configs dir"
+  become: yes
+  file:
+    owner: "{{ ansible_env.USER }}"
+    group: "{{ ansible_env.USER }}"
+    path: "{{ openvpn_install_dir }}/openvpn-ca/{{ openvpn_client_name }}"
+    state: directory
+    mode: 0700
+
+- name: "Copy client sample configs from remote host itself"
+  become: yes
+  copy:
+      remote_src: yes
+      src: /usr/share/doc/openvpn/examples/sample-config-files/client.conf
+      dest: "{{ openvpn_install_dir }}/openvpn-ca/{{ openvpn_client_name }}/{{ openvpn_client_name }}.ovpn"
+
+- name: Set the server ip and port
+  become: yes
+  lineinfile:
+    dest: "{{ openvpn_install_dir }}/openvpn-ca/{{ openvpn_client_name }}/{{ openvpn_client_name }}.ovpn"
+    regexp: "^{{ item.regex | regex_escape() }}"
+    line: "{{ item.value }}"
+  with_items:
+    - { regex: 'remote my-server-1 1194', value: 'remote {{ openvpn_server_name }} 1194' }
+    - { regex: ';user nobody', value: 'user nobody' }
+    - { regex: ';group nogroup', value: 'group nogroup' }
+    - { regex: 'ca ca.crt', value: '#ca ca.crt' }
+    - { regex: 'cert client.crt', value: '#cert client.crt' }
+    - { regex: 'key client.key', value: '#key client.key' }
+    - { regex: 'tls-auth ta.key 1', value: '#tls-auth ta.key 1' }
+    
+- name: "Create client ovpn file"
+  become: yes
+  shell: "{{ item }}"
+  with_items:
+    - echo -e '<ca>' >> {{ openvpn_install_dir }}/openvpn-ca/{{ openvpn_client_name }}/{{ openvpn_client_name }}.ovpn
+    - cat {{ openvpn_install_dir }}/openvpn-ca/pki/ca.crt >> {{ openvpn_install_dir }}/openvpn-ca/{{ openvpn_client_name }}/{{ openvpn_client_name }}.ovpn
+    - echo -e '</ca>\n<cert>' >> {{ openvpn_install_dir }}/openvpn-ca/{{ openvpn_client_name }}/{{ openvpn_client_name }}.ovpn
+    - cat {{ openvpn_install_dir }}/openvpn-ca/pki/issued/{{ openvpn_client_name }}.crt >> {{ openvpn_install_dir }}/openvpn-ca/{{ openvpn_client_name }}/{{ openvpn_client_name }}.ovpn
+    - echo -e '</cert>\n<key>' >> {{ openvpn_install_dir }}/openvpn-ca/{{ openvpn_client_name }}/{{ openvpn_client_name }}.ovpn
+    - cat {{ openvpn_install_dir }}/openvpn-ca/pki/private/{{ openvpn_client_name }}.key >> {{ openvpn_install_dir }}/openvpn-ca/{{ openvpn_client_name }}/{{ openvpn_client_name }}.ovpn
+    - echo -e '</key>\n<tls-auth>' >> {{ openvpn_install_dir }}/openvpn-ca/{{ openvpn_client_name }}/{{ openvpn_client_name }}.ovpn
+    - cat {{ openvpn_install_dir }}/openvpn-ca/ta.key >> {{ openvpn_install_dir }}/openvpn-ca/{{ openvpn_client_name }}/{{ openvpn_client_name }}.ovpn
+    - echo -e '</tls-auth>' >> {{ openvpn_install_dir }}/openvpn-ca/{{ openvpn_client_name }}/{{ openvpn_client_name }}.ovpn
+    - echo -e 'key-direction 1' >> {{ openvpn_install_dir }}/openvpn-ca/{{ openvpn_client_name }}/{{ openvpn_client_name }}.ovpn
+  args:
+    chdir: "{{ openvpn_install_dir }}/openvpn-ca/"
+    executable: /bin/bash
+
+- name: Fetch client configurations
+  fetch:
+    src: "{{ openvpn_install_dir }}/openvpn-ca/{{ openvpn_client_name }}/{{ item|basename }}"
+    dest: "{{ openvpn_download_dir }}/"
+    flat: yes
+  with_items:
+    - "{{ openvpn_client_name }}.ovpn"
+  become: true

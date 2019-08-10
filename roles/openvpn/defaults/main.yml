@@ -1,0 +1,6 @@
+---
+openvpn_server_name: 303v.cf
+openvpn_download_dir: /home/ljurk/projects/init/transport
+openvpn_install_dir: /opt/openvpn
+openvpn_client_name: ljurk
+openvpn_ca_email: admin@mail.org
