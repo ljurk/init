@@ -1,6 +1,7 @@
 ---
 website_path: /var/www/html/wiki
 website_git_url: https://github.com/ljurk/wikipages.git
+website_git_branch: master
 website_html_path: /var/www/html/wiki/docs
 website_domain_name: 303.ddns.net
 website_server_admin_email: admin@mail.org
