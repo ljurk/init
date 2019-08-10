@@ -3,7 +3,7 @@
 # Description: installs dotfiles specified in the given url
 - name: delete default dotfiles
   file:
-      path: "{{ ansible_env.HOME }}/{{ item }}"
+      path: "{{ homedir }}/{{ item }}"
       state: absent
   with_items:
       - .dot

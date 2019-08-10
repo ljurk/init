@@ -2,17 +2,17 @@
 # setup zsh
 - name: create .antigen dir
   file:
-      path: "{{ ansible_env.HOME }}/.antigen"
+      path: "{{ homedir }}/.antigen"
       state: directory
 
 - name: install antigen - a plugin manager for zsh
   get_url:
       url: https://raw.githubusercontent.com/zsh-users/antigen/master/bin/antigen.zsh
-      dest: "{{ ansible_env.HOME }}/.antigen/antigen.zsh"
+      dest: "{{ homedir }}/.antigen/antigen.zsh"
 
 - name: change shell to zsh
   become: true
   user:
-      name: "{{ ansible_env.USER }}"
+      name: "{{ user }}"
       shell: /usr/bin/zsh
       state: present
