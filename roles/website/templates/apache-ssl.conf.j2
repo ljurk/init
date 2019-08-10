@@ -1,0 +1,12 @@
+<IfModule mod_ssl.c>
+<VirtualHost *:443>
+    ServerAdmin {{ website_server_admin_email }}
+    ServerName {{ website_domain_name}}
+    
+    DocumentRoot {{ website_html_path }}
+    SSLCertificateFile /etc/letsencrypt/live/{{ website_domain_name }}/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/{{ website_domain_name }}/privkey.pem
+    SSLCertificateChainFile /etc/letsencrypt/live/{{ website_domain_name }}/fullchain.pem
+
+ </VirtualHost>
+</IfModule>

@@ -1,0 +1,72 @@
+---
+- name: install packages
+  become: true
+  package:
+    name: "{{ packages }}"
+    state: present
+  vars:
+      packages:
+        - apache2
+        - php7.3
+
+- name: "clone webserver files to {{ website_path }}"
+  git:
+    repo: "{{ website_git_url }}"
+    version: "{{ website_git_branch }}"
+    dest: "{{ website_path }}"
+    accept_hostkey: yes
+  become: true
+
+- name: "change permissions of the new folder"
+  file:
+      path: "{{ website_path }}"
+      owner: www-data
+      group: www-data
+      recurse: true
+  become: true
+
+- name: enalbe ssl module
+  apache2_module:
+      name: ssl
+      state: present
+  become: true
+
+- name: "set apache config"
+  template:
+      src: apache.conf.j2
+      dest: "/etc/apache2/sites-available/{{ website_domain_name }}.conf"
+  become: true
+
+
+- name: "set apache ssl config"
+  template:
+      src: apache-ssl.conf.j2
+      dest: "/etc/apache2/sites-available/{{ website_domain_name }}-ssl.conf"
+  become: true
+
+- name: "disable default config"
+  file:
+      dest: "/etc/apache2/sites-enabled/000-default.conf"
+      state: absent
+  become: true
+
+- name: "enable new apache config"
+  file:
+      src: "/etc/apache2/sites-available/{{ website_domain_name }}.conf"
+      dest: "/etc/apache2/sites-enabled/{{ website_domain_name }}.conf"
+      state: link
+  become: true
+
+- name: "enable new apache ssl config"
+  file:
+      src: "/etc/apache2/sites-available/{{ website_domain_name }}-ssl.conf"
+      dest: "/etc/apache2/sites-enabled/{{ website_domain_name }}-ssl.conf"
+      state: link
+  become: true
+
+- name: "restart service"
+  service:
+      name: apache2
+      state: restarted
+  become: true
+
