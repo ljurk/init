@@ -3,7 +3,7 @@
 # Description: installs dotfiles specified in the given url
 - name: delete default dotfiles
   file:
-      path: "{{ homedir }}/{{ item }}"
+      path: "{{ ansible_env.HOME }}/{{ item }}"
       state: absent
   with_items:
       - .dot
@@ -18,6 +18,11 @@
     version: master
     dest: "{{ dotfiles_path }}"
     accept_hostkey: yes
+
+- name: "clone dotfiles {{ dotfiles_path }}"
+  file:
+    path: "{{ dotfiles_path }}/readme.md"
+    state: absent
 
 - name: Stow configurations
   shell: stow *

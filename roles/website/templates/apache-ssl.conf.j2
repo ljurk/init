@@ -8,5 +8,18 @@
     SSLCertificateKeyFile /etc/letsencrypt/live/{{ website_domain_name }}/privkey.pem
     SSLCertificateChainFile /etc/letsencrypt/live/{{ website_domain_name }}/fullchain.pem
 
+
+#if foo requested, return foo.html contents
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ $1.html [NC,L]
+
+#redirect foo.html to foo
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)\.html$ $1 [R=301,L]
+
+
  </VirtualHost>
 </IfModule>

@@ -44,15 +44,18 @@
   lineinfile: dest={{ server_sshd_config }} regexp="^#?PermitEmptyPasswords" line="PermitEmptyPasswords no"
   notify: restart sshd
   become: true
+  tags: ssh
 
 - name: Disable remote root login
   lineinfile: dest={{ server_sshd_config }} regexp="^#?PermitRootLogin" line="PermitRootLogin no"
   notify: restart sshd
   become: true
+  tags: ssh
 
 - name: Disable password login
   lineinfile: dest={{ server_sshd_config }} regexp="^(#\s*)?PasswordAuthentication " line="PasswordAuthentication no"
   notify: restart sshd
   become: true
+  tags: ssh
 
 

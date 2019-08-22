@@ -25,10 +25,13 @@
       recurse: true
   become: true
 
-- name: enalbe ssl module
+- name: enalbe apache modules
   apache2_module:
-      name: ssl
+      name: "{{ item }}"
       state: present
+  with_items:
+      - ssl
+      - rewrite
   become: true
 
 - name: "set apache config"

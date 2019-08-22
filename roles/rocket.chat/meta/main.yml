@@ -1,0 +1,37 @@
+---
+galaxy_info:
+  author:
+    - Calum MacRae
+    - Michael Goodwin
+  description: Deploy Rocket.Chat
+  license: MIT
+  min_ansible_version: 2.3.0
+  platforms:
+    - name: CentOS
+      versions:
+        - 7
+    - name: EL
+      versions:
+        - 7
+    - name: Fedora
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - trusty
+        - xenial
+        - bionic
+    - name: Debian
+      versions:
+        - jessie
+        - stretch
+  galaxy_tags:
+    - cloud
+    - database
+    - database:nosql
+    - networking
+    - packaging
+    - system
+    - web
+    - chat
+dependencies: []
