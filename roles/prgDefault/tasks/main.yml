@@ -11,8 +11,8 @@
         - git
         - vim
         - wget
-        - python3.7
-        - python3-pip
+        - python
+        - python-pip
         - zsh
         - stow
         - ruby

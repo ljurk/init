@@ -9,34 +9,63 @@
         # dependency for makepkg
         - binutils
         - fakeroot
+        # other build tools
+        - cmake
         # tools
         - termite
         - texlive-core
         - texlive-fontsextra
         - zathura-pdf-mupdf
-        - pulseaudio-alsa
-        - pulseaudio-jack
+        - pandoc
+        - blueman #blueetooth manager
+        - gnupg
+        - ranger
+        - rsync
+        - screenfetch
+        - shellcheck
         - networkmanager
         - acpi
         - bat
-        - dash
+        - ansible
+        - docker
+        - vagrant
+        - virtualbox
+        # audio
+        - pulseaudio-alsa
+        - pulseaudio-jack
+        - alsa-utils
+        - alsa-firmware
+        - alsa-plugins
         # gtk
         - gtk2
         - gtk3
         - adapta-gtk-theme
         - papirus-icon-theme
         # gui tools
+        - rofi
         - firefox
         - remmina
         - freerdp
         - thunderbird
         - cadence
+        - audacity
         - pavucontrol
         - zathura
+        - gimp
+        - gparted
+        - gsmartcontrol # monitors drives
+        - libreoffice-fresh
         - pcmanfm
+        # networking
         - network-manager-applet
+        - networkmanager-openconnect
+        - networkmanager-openvpn
+        - networkmanager-pptp
+        - networkmanager-vpnc
+        - nmap
         - xfce4-power-manager
         - xorg-xrandr
+        - arandr
         - autorandr
         - lightdm
         - lightdm-gtk-greeter
@@ -69,13 +98,9 @@
         - ttf-font-awesome-4
         - networkmanager-dmenu-git
         - xcursor-breeze
-
-- name: Install pip 2.7 packages
-  pip:
-      name:
-        - keepmenu
-      executable: pip2
-  become: true
-  tags: pip
-
-
+        - ansible-playbook
+        #dependency for keepmenu
+        - python-pyuserinput-git
+        #and keepmenu itself
+        - python-keepmenu-git
+        - barco-clickshare
