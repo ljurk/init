@@ -103,4 +103,3 @@
         - python-pyuserinput-git
         #and keepmenu itself
         - python-keepmenu-git
-        - barco-clickshare
