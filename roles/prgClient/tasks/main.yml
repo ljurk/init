@@ -98,8 +98,22 @@
         - ttf-font-awesome-4
         - networkmanager-dmenu-git
         - xcursor-breeze
-        - ansible-playbook
         #dependency for keepmenu
         - python-pyuserinput-git
         #and keepmenu itself
         - python-keepmenu-git
+
+#setup vpn
+- name: create cert dir
+  file:
+    path: "{{ ansible_env.HOME }}/cert"
+    state: directory
+
+- name: copy vpn stuff
+  template:
+    src: "{{ item }}"
+    dest: "{{ ansible_env.HOME }}/cert"
+  with_items:
+    - TUD.vpn
+    - TUD-CA.pem
+
