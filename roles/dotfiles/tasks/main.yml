@@ -13,6 +13,8 @@
       - .config/i3/config
       - .vimrc
       - .zshrc
+      - .gtkrc-2.0
+      - .dmenurc
       - .config/autorandr
       - .config/gtk-3.0
       - .config/i3blocks
@@ -28,7 +30,7 @@
     dest: "{{ dotfiles_path }}"
     accept_hostkey: yes
 
-- name: "clone dotfiles {{ dotfiles_path }}"
+- name: "delete readme.md"
   file:
     path: "{{ dotfiles_path }}/readme.md"
     state: absent
