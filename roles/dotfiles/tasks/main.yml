@@ -11,6 +11,15 @@
       - .bash_profile
       - .Xresources
       - .config/i3/config
+      - .vimrc
+      - .zshrc
+      - .config/autorandr
+      - .config/gtk-3.0
+      - .config/i3blocks
+      - .config/termite
+      - .config/dunst
+      - .config/ranger
+
 
 - name: "clone dotfiles {{ dotfiles_path }}"
   git:
