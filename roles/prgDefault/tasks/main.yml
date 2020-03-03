@@ -5,27 +5,26 @@
     name: "{{ packages }}"
     state: present
   vars:
-      packages:
-        # tools
-        - pandoc
-        - git
-        - vim
-        - wget
-        - python
-        - python-pip
-        - zsh
-        - stow
-        - ruby
-        - tmux
+    packages:
+      # tools
+      - git
+      - vim
+      - wget
+      - python
+      - python-pip
+      - zsh
+      - stow
+      - ruby
+      - tmux
 
 # setup zsh
 - name: setup zsh
   include_role:
-      name: zsh
+    name: zsh
 
 - name: "clone scripts {{ scripts_path }}"
   git:
     repo: "{{ scripts_url }}"
     version: master
     dest: "{{ scripts_path }}"
-    accept_hostkey: yes
+    accept_hostkey: true
