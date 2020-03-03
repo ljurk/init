@@ -1,37 +1,32 @@
 ---
-- name: install dependencys
+- name: install dependencies
   become: true
   package:
-      name: "{{ packages }}"
+      name: "{{ item }}"
       state: present
-  vars:
-      packages:
-        # dependency for makepkg
-        - binutils
-        - fakeroot
-        #dependency for ncurse
-        - gcc-libs
-        - gcc
-        - glibc
-        - make
+  with_items:
+      # dependency for makepkg
+      - binutils
+      - fakeroot
+      # dependency for ncurse
+      - gcc-libs
+      - gcc
+      - glibc
+      - make
 
 # install this module first: https://github.com/kewlfft/ansible-aur
-- name: install aur packages without pgp check
+- name: install dependency for vmrc
   aur:
-    name: "{{ packages }}"
-    skip_installed: true
-    skip_pgp_check: true
-  vars:
-      packages:
-        # dependency for vmrc
-        - ncurses5-compat-libs
+      name: ncurses5-compat-libs
+      skip_installed: true
+      skip_pgp_check: true
 
 - name: "get vmrc bundle"
   become: true
   copy:
-    src: "{{ vmrc_url }}"
-    dest: "/tmp/vmrc.bundle"
-    mode: 0776
+      src: "{{ vmrc_url }}"
+      dest: "/tmp/vmrc.bundle"
+      mode: 0776
 
 - name: check for /etc/init.d
   become: true
