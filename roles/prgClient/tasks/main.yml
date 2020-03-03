@@ -5,70 +5,70 @@
     name: "{{ packages }}"
     state: present
   vars:
-      packages:
-        # dependency for makepkg
-        - binutils
-        - fakeroot
-        # other build tools
-        - cmake
-        # tools
-        - termite
-        - texlive-core
-        - texlive-fontsextra
-        - zathura-pdf-mupdf
-        - pandoc
-        - blueman #blueetooth manager
-        - gnupg
-        - ranger
-        - rsync
-        - screenfetch
-        - shellcheck
-        - networkmanager
-        - acpi
-        - bat
-        - ansible
-        - docker
-        - vagrant
-        - virtualbox
-        # audio
-        - pulseaudio-alsa
-        - pulseaudio-jack
-        - alsa-utils
-        - alsa-firmware
-        - alsa-plugins
-        # gtk
-        - gtk2
-        - gtk3
-        - adapta-gtk-theme
-        - papirus-icon-theme
-        # gui tools
-        - rofi
-        - firefox
-        - remmina
-        - freerdp
-        - thunderbird
-        - cadence
-        - audacity
-        - pavucontrol
-        - zathura
-        - gimp
-        - gparted
-        - gsmartcontrol # monitors drives
-        - libreoffice-fresh
-        - pcmanfm
-        # networking
-        - network-manager-applet
-        - networkmanager-openconnect
-        - networkmanager-openvpn
-        - networkmanager-pptp
-        - networkmanager-vpnc
-        - nmap
-        - xfce4-power-manager
-        - xorg-xrandr
-        - arandr
-        - autorandr
-        - lightdm
-        - lightdm-gtk-greeter
+    packages:
+      # dependency for makepkg
+      - binutils
+      - fakeroot
+      # other build tools
+      - cmake
+      # tools
+      - termite
+      - texlive-core
+      - texlive-fontsextra
+      - zathura-pdf-mupdf
+      - pandoc
+      - blueman #blueetooth manager
+      - gnupg
+      - ranger
+      - rsync
+      - screenfetch
+      - shellcheck
+      - networkmanager
+      - acpi
+      - bat
+      - ansible
+      - docker
+      - vagrant
+      - virtualbox
+      # audio
+      - pulseaudio-alsa
+      - pulseaudio-jack
+      - alsa-utils
+      - alsa-firmware
+      - alsa-plugins
+      # gtk
+      - gtk2
+      - gtk3
+      - adapta-gtk-theme
+      - papirus-icon-theme
+      # gui tools
+      - rofi
+      - firefox
+      - remmina
+      - freerdp
+      - thunderbird
+      - cadence
+      - audacity
+      - pavucontrol
+      - zathura
+      - gimp
+      - gparted
+      - gsmartcontrol # monitors drives
+      - libreoffice-fresh
+      - pcmanfm
+      # networking
+      - network-manager-applet
+      - networkmanager-openconnect
+      - networkmanager-openvpn
+      - networkmanager-pptp
+      - networkmanager-vpnc
+      - nmap
+      - xfce4-power-manager
+      - xorg-xrandr
+      - arandr
+      - autorandr
+      - lightdm
+      - lightdm-gtk-greeter
 
 - name: activate networkmanager
   systemd:

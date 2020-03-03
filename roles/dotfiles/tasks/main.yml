@@ -1,39 +1,47 @@
 ---
 # Author: Lukn
 # Description: installs dotfiles specified in the given url
+- name: install stow
+  package:
+    name: stow
+    state: present
+  become: true
+
 - name: delete default dotfiles
   file:
-      path: "{{ ansible_env.HOME }}/{{ item }}"
-      state: absent
+    path: "{{ ansible_env.HOME }}/{{ item }}"
+    state: absent
   with_items:
-      - .dot
-      - .bashrc
-      - .bash_profile
-      - .Xresources
-      - .config/i3/config
-      - .vimrc
-      - .zshrc
-      - .gtkrc-2.0
-      - .dmenurc
-      - .config/autorandr
-      - .config/gtk-3.0
-      - .config/i3blocks
-      - .config/termite
-      - .config/dunst
-      - .config/ranger
-
+    - .dot
+    - .bashrc
+    - .bash_profile
+    - .Xresources
+    - .config/i3/config
+    - .vimrc
+    - .zshrc
+    - .gtkrc-2.0
+    - .dmenurc
+    - .config/autorandr
+    - .config/gtk-3.0
+    - .config/i3blocks
+    - .config/termite
+    - .config/dunst
+    - .config/ranger
 
 - name: "clone dotfiles {{ dotfiles_path }}"
   git:
     repo: "{{ dotfiles_url }}"
     version: master
     dest: "{{ dotfiles_path }}"
-    accept_hostkey: yes
+    accept_hostkey: true
 
 - name: "delete readme.md"
   file:
-    path: "{{ dotfiles_path }}/readme.md"
+    path: "{{ dotfiles_path }}/{{ item }}"
     state: absent
+  with_items:
+    - _config.yml
+    - readme.md
 
 - name: Stow configurations
   shell: stow *
