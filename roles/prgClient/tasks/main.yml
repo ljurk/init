@@ -11,23 +11,30 @@
       - fakeroot
       # other build tools
       - cmake
-      # tools
+      ## tools
+      # pdf
+      - pandoc
       - termite
       - texlive-core
       - texlive-fontsextra
+      - zathura
       - zathura-pdf-mupdf
-      - pandoc
-      - blueman #blueetooth manager
+      # environment
+      - lightdm
+      - lightdm-gtk-greeter
+      - blueman  # blueetooth manager
       - gnupg
-      - ranger
       - rsync
-      - screenfetch
-      - shellcheck
       - networkmanager
       - acpi
+      - xfce4-power-manager
+      - gsmartcontrol  # monitors drives
+      # cli tools
+      - shellcheck
       - bat
-      - ansible
+      # virtualization & provisioning
       - docker
+      - ansible
       - vagrant
       - virtualbox
       # audio
@@ -36,26 +43,21 @@
       - alsa-utils
       - alsa-firmware
       - alsa-plugins
-      # gtk
-      - gtk2
-      - gtk3
-      - adapta-gtk-theme
-      - papirus-icon-theme
-      # gui tools
-      - rofi
-      - firefox
-      - remmina
-      - freerdp
-      - thunderbird
       - cadence
       - audacity
       - pavucontrol
-      - zathura
-      - gimp
+      # basic
+      - rofi
+      - firefox
+      - thunderbird
+      # work
+      - remmina
+      - freerdp
+      # file system
       - gparted
-      - gsmartcontrol # monitors drives
-      - libreoffice-fresh
-      - pcmanfm
+      - thunar
+      # graphical
+      - gimp
       # networking
       - network-manager-applet
       - networkmanager-openconnect
@@ -63,27 +65,29 @@
       - networkmanager-pptp
       - networkmanager-vpnc
       - nmap
-      - xfce4-power-manager
+      # display
       - xorg-xrandr
       - arandr
       - autorandr
-      - lightdm
-      - lightdm-gtk-greeter
+      - gtk2
+      - gtk3
+      - adapta-gtk-theme
+      - papirus-icon-theme
 
 - name: activate networkmanager
   systemd:
-      name: "{{ item }}"
-      enabled: yes
+    name: "{{ item }}"
+    enabled: true
   with_items:
-        - lightdm
-        - NetworkManager
-        - autorandr
+    - lightdm
+    - NetworkManager
+    - autorandr
 
 - name: set up xinitrc
   lineinfile:
     dest: ~/.xinitrc
     state: present
-    create: yes
+    create: true
     insertafter: EOF
     regexp: "^exec .*"
     line: "exec nm-applet"
@@ -94,16 +98,16 @@
     name: "{{ packages }}"
     skip_installed: true
   vars:
-      packages:
-        - ttf-font-awesome-4
-        - networkmanager-dmenu-git
-        - xcursor-breeze
-        #dependency for keepmenu
-        - python-pyuserinput-git
-        #and keepmenu itself
-        - python-keepmenu-git
+    packages:
+      - ttf-font-awesome-4
+      - networkmanager-dmenu-git
+      - xcursor-breeze
+      # dependency for keepmenu
+      - python-pyuserinput-git
+      # and keepmenu itself
+      - python-keepmenu-git
 
-#setup vpn
+# setup vpn
 - name: create cert dir
   file:
     path: "{{ ansible_env.HOME }}/cert"
@@ -116,4 +120,3 @@
   with_items:
     - TUD.vpn
     - TUD-CA.pem
-
