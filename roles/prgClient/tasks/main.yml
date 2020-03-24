@@ -53,6 +53,7 @@
       # file system
       - gparted
       - thunar
+      - nextcloud-client
       # graphical
       - blueman  # blueetooth manager
       - gimp
