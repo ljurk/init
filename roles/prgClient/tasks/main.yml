@@ -19,6 +19,7 @@
       - texlive-fontsextra
       - zathura
       - zathura-pdf-mupdf
+      - epdfview
       # environment
       - gnupg
       - rsync
@@ -26,6 +27,7 @@
       - acpi
       - xfce4-power-manager
       - gsmartcontrol  # monitors drives
+      - flameshot
       # cli tools
       - shellcheck
       - bat
@@ -57,6 +59,13 @@
       - gparted
       - thunar
       - nextcloud-client
+      - smbclient
+      - gvfs-smb
+      # printing
+      - cups
+      - cups-pdf
+      - cups-pk-helper
+      - system-config-printer
       # graphical
       - blueman  # blueetooth manager
       - gimp
@@ -79,21 +88,14 @@
       - ttf-dejavu
 
 - name: activate networkmanager
+  become: true
   systemd:
     name: "{{ item }}"
     enabled: true
   with_items:
     - NetworkManager
     - autorandr
-
-- name: set up xinitrc
-  lineinfile:
-    dest: ~/.xinitrc
-    state: present
-    create: true
-    insertafter: EOF
-    regexp: "^exec .*"
-    line: "exec nm-applet"
+    - cups-browsed
 
 # install this module first: https://github.com/kewlfft/ansible-aur
 - name: install aur packages
