@@ -20,9 +20,6 @@
       - zathura
       - zathura-pdf-mupdf
       # environment
-      - lightdm
-      - lightdm-gtk-greeter
-      - blueman  # blueetooth manager
       - gnupg
       - rsync
       - networkmanager
@@ -57,7 +54,9 @@
       - gparted
       - thunar
       # graphical
+      - blueman  # blueetooth manager
       - gimp
+      - lxappearance
       # networking
       - network-manager-applet
       - networkmanager-openconnect
@@ -73,13 +72,13 @@
       - gtk3
       - adapta-gtk-theme
       - papirus-icon-theme
+      - ttf-dejavu
 
 - name: activate networkmanager
   systemd:
     name: "{{ item }}"
     enabled: true
   with_items:
-    - lightdm
     - NetworkManager
     - autorandr
 
