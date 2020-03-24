@@ -5,10 +5,10 @@
       path: "{{ ansible_env.HOME }}/.antigen"
       state: directory
 
-- name: install antigen - a plugin manager for zsh
-  get_url:
-      url: https://raw.githubusercontent.com/zsh-users/antigen/master/bin/antigen.zsh
-      dest: "{{ ansible_env.HOME }}/.antigen/antigen.zsh"
+- name: install aur packages
+  aur:
+      name: "antigen"
+      skip_installed: true
 
 - name: change shell to zsh
   become: true
