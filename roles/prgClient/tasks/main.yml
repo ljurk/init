@@ -35,6 +35,9 @@
       - vagrant
       - virtualbox
       # audio
+      - jack2
+      - a2jmidid
+      - jaaa # spectrum analyzer
       - pulseaudio-alsa
       - pulseaudio-jack
       - alsa-utils
