@@ -16,6 +16,7 @@
     - .bashrc
     - .bash_profile
     - .Xresources
+    - .xinitrc
     - .config/i3/config
     - .vimrc
     - .zshrc
