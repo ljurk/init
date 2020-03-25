@@ -111,6 +111,8 @@
       - python-pyuserinput-git
       # and keepmenu itself
       - python-keepmenu-git
+      - mssql-cli
+      - visual-studio-code-bin
 
 # setup vpn
 - name: create cert dir
