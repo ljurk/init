@@ -5,9 +5,9 @@
     - dotfiles_url: "https://github.com/ljurk/dot.git"
     - scripts_path: "{{ ansible_env.HOME }}/.scripts"
     - scripts_url: "https://github.com/ljurk/scripts.git"
-  roles: 
-     - update
-     - prgDefault
-     - prgClient
-     - i3
-     - dotfiles
+  roles:
+    - update
+    - prgDefault
+    - prgClient
+    - i3
+    - dotfiles
