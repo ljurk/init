@@ -1,0 +1,6 @@
+---
+- name: copy libinput config
+  template:
+    src: 30-touchpad.conf
+    dest: /etc/X11/xorg.conf.d/
+  become: true
