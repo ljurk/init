@@ -8,7 +8,6 @@
 - name: install aur packages
   aur:
       name: "antigen"
-      skip_installed: true
 
 - name: change shell to zsh
   become: true

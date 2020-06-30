@@ -101,7 +101,6 @@
 - name: install aur packages
   aur:
     name: "{{ packages }}"
-    skip_installed: true
   vars:
     packages:
       - ttf-font-awesome-4
