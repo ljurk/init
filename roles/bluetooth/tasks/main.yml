@@ -1,0 +1,25 @@
+---
+- name: Install required pacakges
+  package:
+   name: "{{ item }}"
+   state: present
+  with_items:
+   - bluez
+   - bluez-libs
+   - bluez-utils
+   - blueman
+   - pulseaudio-bluetooth
+  become: true
+
+- name: enable bluetooth service
+  systemd:
+   name: bluetooth
+   enabled: true
+
+- name: load bluetooth module for pulseaudio
+  blockinfile:
+   path: /etc/pulse/system.pa
+   block: |
+     load-module module-bluetooth-policy
+     load-module module-bluetooth-discover
+  become: true
