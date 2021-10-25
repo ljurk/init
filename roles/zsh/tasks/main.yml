@@ -5,9 +5,22 @@
       path: "{{ ansible_env.HOME }}/.antigen"
       state: directory
 
+- name: install zsh package
+  package:
+      name: "zsh"
+  become: true
+
+- name: install antigen packages
+  package:
+      name: "zsh-antigen"
+  become: true
+  when: ansible_distribution == 'Debian'
+
 - name: install aur packages
   aur:
       name: "antigen"
+  become: true
+  when: ansible_distribution == 'Arch'
 
 - name: change shell to zsh
   become: true
