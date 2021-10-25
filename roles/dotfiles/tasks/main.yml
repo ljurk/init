@@ -15,6 +15,7 @@
     - .dot
     - .bashrc
     - .bash_profile
+    - .profile
     - .Xresources
     - .xinitrc
     - .config/i3/config
@@ -48,3 +49,11 @@
   shell: stow *
   args:
     chdir: "{{ dotfiles_path }}"
+
+- name: change antigen path
+  replace:
+    path: "{{ ansible_env.HOME }}/.zshrc"
+    regexp: "^source /usr/share/zsh/share/antigen.zsh$"
+    replace: "source /usr/share/zsh-antigen/antigen.zsh"
+  tags: replace
+  when: ansible_distribution == 'Debian'
