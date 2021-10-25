@@ -1,0 +1,5 @@
+---
+
+staticIp_interface: eth0
+staticIp_routers: 192.168.0.1
+staticIp_dns_servers: 1.1.1.1

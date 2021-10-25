@@ -1,0 +1,19 @@
+---
+
+- debug:
+    msg: "staticIp_ipaddress is required"
+  failed_when: staticIp_ipaddress is not defined
+
+- name: Configure static IP in  /etc/dhcpcd.conf
+  become: yes
+  lineinfile:
+    dest:  /etc/dhcpcd.conf
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  with_items:
+    - { regexp: "^interface eth[0-9]$", line: "interface {{ staticIp_interface }}" }
+    - { regexp: "^static ip_address", line: "static ip_address={{ staticIp_ipaddress }}" }
+    - { regexp: "^static routers", line: "static routers={{ staticIp_routers }}" }
+    - { regexp: "^static domain_name_servers", line: "static domain_name_servers={{ staticIp_dns_servers }}" }
+  notify: reboot
