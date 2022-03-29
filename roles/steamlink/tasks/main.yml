@@ -1,0 +1,78 @@
+---
+- name: install packages
+  become: true
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - steamlink
+    - cec-utils
+
+- name: remove Welcome windows
+  become: true
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /etc/xdg/lxsession/LXDE-pi/sshpwd.sh
+    - /etc/xdg/autostart/piwiz.desktop
+
+- name: remove rainbow screen at startup
+  become: true
+  lineinfile:
+    path: /boot/config.txt
+    regexp: '^disable_splash=1$'
+    line: 'disable_splash=1'
+
+- name: custom splash screen
+  become: true
+  copy:
+    src: splash.png
+    dest: /usr/share/plymouth/themes/pix/splash.png
+
+- name: set desktop background
+  shell: pcmanfm --set-wallpaper /usr/share/plymouth/themes/pix/splash.png --wallpaper-mode center --display :0.0 --reconfigure
+
+# raspi-config
+# GPU memory
+- name: Get current GPU memory split
+  shell: "raspi-config nonint get_config_var gpu_mem /boot/config.txt"
+  changed_when: false
+  register: gpu_mem
+
+- name: "Set GPU memory split to {{ STEAMLINK_MEMSPLIT }}"
+  become: true
+  shell: "raspi-config nonint do_memory_split {{ STEAMLINK_MEMSPLIT }}"
+  when: gpu_mem.stdout != '128'
+
+# wait for network
+- name: Get boot wait for network status
+  shell: "raspi-config nonint get_boot_wait"
+  register: boot_wait
+  changed_when: False
+
+- name: Set boot wait network status
+  become: true
+  shell: "raspi-config nonint do_boot_wait 0"
+  when: boot_wait.stdout != '0'
+
+#A1 Expand Filesystem
+- name: Check if FS is expandable
+  become: true
+  shell: "raspi-config nonint get_can_expand"
+  register: fs_filled
+  changed_when: False
+
+- debug: var=fs_filled
+
+  #- name: Expand Filesystem
+  #  become: true
+  #  shell: "raspi-config nonint do_expand_rootfs"
+  #  when: fs_filled.stdout == '0'
+
+- name: autostart steamlink
+  become: true
+  lineinfile:
+    path: /etc/xdg/lxsession/LXDE-pi/autostart
+    regexp: '^@steamlink$'
+    line: '@steamlink'
